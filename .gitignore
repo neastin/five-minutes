@@ -4,3 +4,7 @@
 *.jar
 *.war
 *.ear
+
+#stores, logs
+*.log
+.DS_Store
