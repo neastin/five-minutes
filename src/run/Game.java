@@ -26,5 +26,4 @@ public class Game extends StateBasedGame {
         app.setShowFPS(false);
         app.start();
     }
-
 }
