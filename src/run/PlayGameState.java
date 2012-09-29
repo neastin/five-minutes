@@ -1,6 +1,6 @@
 package run;
 
-import java.util.Date;
+import java.awt.Font;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -16,6 +16,7 @@ public class PlayGameState extends BasicGameState {
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
+		g.draw
     }
 
     @Override
