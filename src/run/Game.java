@@ -8,14 +8,12 @@ import org.newdawn.slick.state.StateBasedGame;
 public class Game extends StateBasedGame {
 
     public Game() {
-        super("Kamikaze Capitalists");
+        super("How to Save the World in Five Minutes");
     }
 
     @Override
     public void initStatesList(GameContainer container) throws SlickException {
-        addState(new MainMenuGameState());
         addState(new PlayGameState());
-        addState(new InstructionState());
     }
 
     public static void main(String[] args) throws SlickException {
