@@ -6,6 +6,9 @@
 *.war
 *.ear
 
+# photoshop files
+*.psd
+
 #stores, logs
 *.log
 .DS_Store
