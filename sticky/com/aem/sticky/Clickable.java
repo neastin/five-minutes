@@ -26,7 +26,7 @@ public interface Clickable {
      * @param y
      */
     public void mouseReleased(int button, int x, int y);
-    
+
     /**
      * @param oldx
      * @param oldy
