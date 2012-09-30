@@ -20,24 +20,43 @@ public class PlayGameState extends BasicGameState {
     // the top state of each stack will be rendered each time render is called on this object
     public ArrayList<Stack<PartScreenState>> states;
 
+    public Image background;
+
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
+        // show a background
+        Image im = this.background;
+        g.drawImage(im, 0, 0);
+
 		g.setColor(Color.white);
         g.fillRect(390, 0, 20, 599);
         // maintain two internal states. Render one on each side of the screen
+        for (int i = 0; i < this.states.size(); i++) {
+            Stack<PartScreenState> stack = this.states.get(i);
+            PartScreenState partState = stack.peek();
+            partState.render(container, game, g);
+        }
     }
 
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
-        states = new ArrayList<Stack<PartScreenState>>();
+        this.background = new Image("resources/big-background.png");
+
+        this.states = new ArrayList<Stack<PartScreenState>>();
         Stack<PartScreenState> states1 = new Stack<PartScreenState>();
         Stack<PartScreenState> states2 = new Stack<PartScreenState>();
 
         states1.push(new PartScreenState(1, 0, 390, 0, 600));
-        states2.push(new PartScreenState(1, 0, 390, 0, 600));
+        states2.push(new PartScreenState(1, 410, 800, 0, 600));
 
         states.add(states1);
         states.add(states2);
+
+        for (int i = 0; i < this.states.size(); i++) {
+            Stack<PartScreenState> stack = this.states.get(i);
+            PartScreenState partState = stack.peek();
+            partState.init(container, game);
+        }
     }
 
     @Override
@@ -45,6 +64,12 @@ public class PlayGameState extends BasicGameState {
         Input input = container.getInput();
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
             container.exit();
+        }
+
+        for (int i = 0; i < this.states.size(); i++) {
+            Stack<PartScreenState> stack = this.states.get(i);
+            PartScreenState partState = stack.peek();
+            partState.update(container, game, delta);
         }
     }
 
