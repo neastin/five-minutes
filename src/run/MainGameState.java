@@ -1,15 +1,13 @@
 /*
- * Object: WindowedGameState
- * Displays a single game state, but does so by displaying it to only a section
- * of the screen specified by parameters to the render call. This allows for the
- * rendering of this view multiple times in different locations on the screen,
- * or for the movement of this view around the screen.
+ * Object: MainGameState
+ * The view of the scrolling text portion of the game.
  */
 package run;
 
-import java.awt.Font;
+import core.TextBlock;
 
-import core.Player;
+import java.awt.Font;
+import java.util.ArrayList;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -19,25 +17,33 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class WindowedGameState {
+public class MainGameState extends WindowedGameState {
 
-    public Player[] players;
+    public ArrayList<TextBlock> textBlocks;
 
     /*
      * Constructor that allows for providing of a stateID
      */
-    public WindowedGameState() {
+    public MainGameState() {
+        super();
     }
 
+    @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g, int x, int y, int height, int width, int playerIndex) throws SlickException {
+        // render the text blocks
+        // render each player
     }
 
+    @Override
     public void init(GameContainer container, StateBasedGame game, int playerIndex) throws SlickException {
     }
 
+    @Override
     public void update(GameContainer container, StateBasedGame game, int delta, int playerIndex) throws SlickException {
+        // react to key presses for that player
     }
 
+    @Override
     public void enter(GameContainer container, StateBasedGame game, int playerIndex) {
     }
 }

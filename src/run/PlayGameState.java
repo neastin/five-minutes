@@ -10,7 +10,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.Sound;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -50,8 +49,8 @@ public class PlayGameState extends BasicGameState {
         // maintain two internal states. Render one on each side of the screen
         for (int i = 0; i < this.states.size(); i++) {
             Stack<WindowedGameState> stack = this.states.get(i);
-            WindowedGameState partState = stack.peek();
-            partState.render(container, game, g, XS[i], YS[i], WIDTHS[i], HEIGHTS[i], i);
+            WindowedGameState windowedState = stack.peek();
+            windowedState.render(container, game, g, XS[i], YS[i], WIDTHS[i], HEIGHTS[i], i);
         }
     }
 
@@ -72,8 +71,8 @@ public class PlayGameState extends BasicGameState {
 
         for (int i = 0; i < this.states.size(); i++) {
             Stack<WindowedGameState> stack = this.states.get(i);
-            WindowedGameState partState = stack.peek();
-            partState.init(container, game);
+            WindowedGameState windowedState = stack.peek();
+            windowedState.init(container, game, i);
         }
     }
 
@@ -86,8 +85,8 @@ public class PlayGameState extends BasicGameState {
 
         for (int i = 0; i < this.states.size(); i++) {
             Stack<WindowedGameState> stack = this.states.get(i);
-            WindowedGameState partState = stack.peek();
-            partState.update(container, game, delta);
+            WindowedGameState windowedState = stack.peek();
+            windowedState.update(container, game, delta, i);
         }
     }
 
@@ -100,8 +99,8 @@ public class PlayGameState extends BasicGameState {
     public void enter(GameContainer container, StateBasedGame game) {
         for (int i = 0; i < this.states.size(); i++) {
             Stack<WindowedGameState> stack = this.states.get(i);
-            WindowedGameState partState = stack.peek();
-            partState.enter(container, game);
+            WindowedGameState windowedState = stack.peek();
+            windowedState.enter(container, game, i);
         }
     }
 }
