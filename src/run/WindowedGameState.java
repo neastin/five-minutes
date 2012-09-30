@@ -1,6 +1,15 @@
+/*
+ * Object: WindowedGameState
+ * Displays a single game state, but does so by displaying it to only a section
+ * of the screen specified by parameters to the render call. This allows for the
+ * rendering of this view multiple times in different locations on the screen,
+ * or for the movement of this view around the screen.
+ */
 package run;
 
 import java.awt.Font;
+
+import core.Player;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -11,43 +20,25 @@ import org.newdawn.slick.Sound;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class PartScreenState extends BasicGameState {
+public class WindowedGameState {
 
-    protected int id;
-    protected int xMin;
-    protected int xMax;
-    protected int yMin;
-    protected int yMax;
+    public Player[] players;
 
     /*
      * Constructor that allows for providing of a stateID
      */
-    public PartScreenState(int stateID, int xMin, int xMax, int yMin, int yMax) {
-        super();
-        this.id = stateID;
-        this.xMin = xMin;
-        this.xMax = xMax;
-        this.yMin = yMin;
-        this.yMax = yMax;
+    public WindowedGameState() {
     }
 
-    public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
+    public void render(GameContainer container, StateBasedGame game, Graphics g, int x, int y, int height, int width, int playerIndex) throws SlickException {
     }
 
-    @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
     }
 
-    @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
     }
 
-    @Override
-    public int getID() {
-        return this.id;
-    }
-
-    @Override
     public void enter(GameContainer container, StateBasedGame game) {
     }
 }
