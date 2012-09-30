@@ -1,5 +1,5 @@
 /*
- * Object: WindowedGameState
+ * Object: Window
  * Displays a single game state, but does so by displaying it to only a section
  * of the screen specified by parameters to the render call. This allows for the
  * rendering of this view multiple times in different locations on the screen,
@@ -19,14 +19,14 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class WindowedGameState {
+public class Window {
 
     public Player[] players;
 
     /*
      * Constructor that allows for providing of a stateID
      */
-    public WindowedGameState() {
+    public Window() {
     }
 
     public void render(GameContainer container, StateBasedGame game, Graphics g, int x, int y, int height, int width, int playerIndex) throws SlickException {

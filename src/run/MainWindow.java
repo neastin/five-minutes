@@ -1,5 +1,5 @@
 /*
- * Object: MainGameState
+ * Object: MainWindow
  * The view of the scrolling text portion of the game.
  */
 package run;
@@ -17,14 +17,14 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class MainGameState extends WindowedGameState {
+public class MainWindow extends Window {
 
     public ArrayList<TextBlock> textBlocks;
 
     /*
      * Constructor that allows for providing of a stateID
      */
-    public MainGameState() {
+    public MainWindow() {
         super();
     }
 

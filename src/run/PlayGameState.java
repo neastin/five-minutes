@@ -15,9 +15,9 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class PlayGameState extends BasicGameState {
 
-    // states holds two stacks of WindowedGameStates, one for each of the player views
+    // states holds two stacks of Windows, one for each of the player views
     // the top state of each stack will be rendered each time render is called on this object
-    public ArrayList<Stack<WindowedGameState>> states;
+    public ArrayList<Stack<Window>> states;
 
     public Image background;
 
@@ -48,8 +48,8 @@ public class PlayGameState extends BasicGameState {
         //g.fillRect(390, 0, 20, 599);
         // maintain two internal states. Render one on each side of the screen
         for (int i = 0; i < this.states.size(); i++) {
-            Stack<WindowedGameState> stack = this.states.get(i);
-            WindowedGameState windowedState = stack.peek();
+            Stack<Window> stack = this.states.get(i);
+            Window windowedState = stack.peek();
             windowedState.render(container, game, g, XS[i], YS[i], WIDTHS[i], HEIGHTS[i], i);
         }
     }
@@ -58,10 +58,10 @@ public class PlayGameState extends BasicGameState {
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         this.background = new Image("resources/big-background.png");
 
-        this.states = new ArrayList<Stack<WindowedGameState>>();
-        Stack<WindowedGameState> states1 = new Stack<WindowedGameState>();
-        Stack<WindowedGameState> states2 = new Stack<WindowedGameState>();
-        WindowedGameState startState = new WindowedGameState();
+        this.states = new ArrayList<Stack<Window>>();
+        Stack<Window> states1 = new Stack<Window>();
+        Stack<Window> states2 = new Stack<Window>();
+        Window startState = new Window();
 
         states1.push(startState);
         states2.push(startState);
@@ -70,8 +70,8 @@ public class PlayGameState extends BasicGameState {
         states.add(states2);
 
         for (int i = 0; i < this.states.size(); i++) {
-            Stack<WindowedGameState> stack = this.states.get(i);
-            WindowedGameState windowedState = stack.peek();
+            Stack<Window> stack = this.states.get(i);
+            Window windowedState = stack.peek();
             windowedState.init(container, game, i);
         }
     }
@@ -84,8 +84,8 @@ public class PlayGameState extends BasicGameState {
         }
 
         for (int i = 0; i < this.states.size(); i++) {
-            Stack<WindowedGameState> stack = this.states.get(i);
-            WindowedGameState windowedState = stack.peek();
+            Stack<Window> stack = this.states.get(i);
+            Window windowedState = stack.peek();
             windowedState.update(container, game, delta, i);
         }
     }
@@ -98,8 +98,8 @@ public class PlayGameState extends BasicGameState {
     @Override
     public void enter(GameContainer container, StateBasedGame game) {
         for (int i = 0; i < this.states.size(); i++) {
-            Stack<WindowedGameState> stack = this.states.get(i);
-            WindowedGameState windowedState = stack.peek();
+            Stack<Window> stack = this.states.get(i);
+            Window windowedState = stack.peek();
             windowedState.enter(container, game, i);
         }
     }
