@@ -12,3 +12,5 @@
 #stores, logs
 *.log
 .DS_Store
+
+/bin
