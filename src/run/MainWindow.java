@@ -23,7 +23,8 @@ public class MainWindow extends Window {
 
     private final int LINE_HEIGHT = 100; // Distance between baselines of successive lines of text.
     private final double TICK_LENGTH = 10; // Milliseconds for text to move one pixel.
-    private final int SCREEN_WIDTH = 390; // FIXME: calculate.
+    private final int MARGIN = 30;
+    private final int SCREEN_WIDTH = 200 - 2 * MARGIN; // FIXME: calculate.
     private BufferedReader reader;
     private ArrayList<String> lines;
     private int lineOffset;
@@ -32,17 +33,16 @@ public class MainWindow extends Window {
     public MainWindow() {
         super();
             
-        font = new UnicodeFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 36));
+        font = new UnicodeFont(java.awt.Font.decode("Arial"));
         lines = new ArrayList<String>(200);
     }
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g, int x, int y, int height, int width, int playerIndex) throws SlickException {
         g.setColor(Color.black);
-        g.setFont(font);
         for (int i = 0; i < lines.size(); i++) {
             String line = lines.get(i);
-            g.drawString(line, 0, LINE_HEIGHT * i + lineOffset);
+            g.drawString(line, x + MARGIN, y + MARGIN + LINE_HEIGHT * i - lineOffset);
         }
 
         // render each player

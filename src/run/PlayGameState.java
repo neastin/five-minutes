@@ -10,6 +10,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -44,7 +45,6 @@ public class PlayGameState extends BasicGameState {
         Image im = this.background;
         g.drawImage(im, 0, 0);
 
-		g.setColor(Color.white);
         //g.fillRect(390, 0, 20, 599);
         // maintain two internal states. Render one on each side of the screen
         for (int i = 0; i < this.states.size(); i++) {
@@ -61,7 +61,7 @@ public class PlayGameState extends BasicGameState {
         this.states = new ArrayList<Stack<Window>>();
         Stack<Window> states1 = new Stack<Window>();
         Stack<Window> states2 = new Stack<Window>();
-        Window startState = new Window();
+        Window startState = new MainWindow();
 
         states1.push(startState);
         states2.push(startState);
