@@ -31,7 +31,7 @@ public class MainWindow extends Window {
 
     public MainWindow() {
         super();
-            
+
         font = new UnicodeFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 36));
         lines = new ArrayList<String>(200);
     }
@@ -65,7 +65,7 @@ public class MainWindow extends Window {
                         currentString.append(' ');
                     }
                     currentString.append(word);
-                    
+
                     if (font.getWidth(currentString.toString()) > SCREEN_WIDTH) {
                         // FIXME: this will cause problems with one-word lines.
                         int prevLength = currentString.length() - word.length() - 1;

@@ -61,7 +61,7 @@ public class PlayGameState extends BasicGameState {
         this.states = new ArrayList<Stack<Window>>();
         Stack<Window> states1 = new Stack<Window>();
         Stack<Window> states2 = new Stack<Window>();
-        Window startState = new Window();
+        MainWindow startState = new MainWindow();
 
         states1.push(startState);
         states2.push(startState);
