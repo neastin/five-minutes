@@ -17,8 +17,7 @@ public class MashWindow extends Window {
 
     // to be implemented when we have different mash minigames
     // private final String MINIGAME_TYPE = "";
-    private int mashCounter;
-    private int playerIndex;
+    private int mashCounter = 0;
 
     public MashWindow() {
         super();
@@ -32,14 +31,13 @@ public class MashWindow extends Window {
 
     @Override
     public void init(GameContainer container, StateBasedGame game, Player player) throws SlickException {
-        this.playerIndex = playerIndex;
         mashCounter = 0;
     }
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta, Player player) throws SlickException {
         Input input = container.getInput();
-        if (input.isKeyPressed(Input.KEY_PERIOD)) {// player.key("action")
+        if (input.isKeyPressed(player.getButton("action"))) {
             mashCounter += 1;
         }
 

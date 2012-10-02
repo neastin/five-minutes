@@ -1,18 +1,18 @@
 package core;
 
 import java.util.HashMap;
-import java.lang.Integer;
 
 import org.newdawn.slick.Graphics;
 
 public class Player {
 
-    public float[] pos;
-    public float[] windowPos;
-    public float[] windowSize;
-    public HashMap<String, Integer> buttons;
+    private float[] pos;
+    private float[] windowPos;
+    private float[] windowSize;
+    private HashMap<String, Integer> buttons;
 
-    public Player(float[] startPos, float[] startWindowPos, float[] startWindowSize, HashMap<String, Integer> playerButtons) {
+    public Player(float[] startPos, float[] startWindowPos, float[] startWindowSize,
+            HashMap<String, Integer> playerButtons) {
         this.windowPos = startWindowPos;
         this.windowSize = startWindowSize;
         this.pos = startPos;
@@ -23,4 +23,19 @@ public class Player {
         // render the player on g
     }
 
+    public float[] getPos() {
+        return this.pos;
+    }
+
+    public float[] getWindowPos() {
+        return this.windowPos;
+    }
+
+    public float[] getWindowSize() {
+        return this.windowSize;
+    }
+
+    public Integer getButton(String command) {
+        return this.buttons.get(command);
+    }
 }
