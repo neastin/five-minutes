@@ -7,21 +7,15 @@
  */
 package run;
 
-import java.awt.Font;
-
 import core.Player;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.Sound;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class Window {
 
-    public Player[] players;
 
     /*
      * Constructor that allows for providing of a stateID
@@ -29,16 +23,16 @@ public class Window {
     public Window() {
     }
 
-    public void render(GameContainer container, StateBasedGame game, Graphics g, int x, int y, int height, int width, int playerIndex) throws SlickException {
+    public void render(GameContainer container, StateBasedGame game, Graphics g, Player player) throws SlickException {
     }
 
-    public void init(GameContainer container, StateBasedGame game, int playerIndex) throws SlickException {
+    public void init(GameContainer container, StateBasedGame game, Player player) throws SlickException {
     }
 
-    public void update(GameContainer container, StateBasedGame game, int delta, int playerIndex) throws SlickException {
+    public void update(GameContainer container, StateBasedGame game, int delta, Player player) throws SlickException {
     }
 
-    public void enter(GameContainer container, StateBasedGame game, int playerIndex) {
+    public void enter(GameContainer container, StateBasedGame game, Player player) {
     }
 }
 

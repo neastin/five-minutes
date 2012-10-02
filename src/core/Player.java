@@ -1,22 +1,22 @@
 package core;
 
+import java.util.HashMap;
+import java.lang.Integer;
+
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.Input;
 
 public class Player {
 
     public float[] pos;
+    public float[] windowPos;
+    public float[] windowSize;
+    public HashMap<String, Integer> buttons;
 
-    public Player(float[] startPos) {
-        this.pos = new float[2];
-        if (startPos.length != 2) {
-            this.pos[0] = 0.0f;
-            this.pos[1] = 0.0f;
-        }
-        else {
-            this.pos = startPos;
-        }
+    public Player(float[] startPos, float[] startWindowPos, float[] startWindowSize, HashMap<String, Integer> playerButtons) {
+        this.windowPos = startWindowPos;
+        this.windowSize = startWindowSize;
+        this.pos = startPos;
+        this.buttons = playerButtons;
     }
 
     public void render(Graphics g, int xOffset, int yOffset) {

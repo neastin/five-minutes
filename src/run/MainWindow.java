@@ -5,6 +5,7 @@
 package run;
 
 import core.TextBlock;
+import core.Player;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -37,7 +38,9 @@ public class MainWindow extends Window {
     }
 
     @Override
-    public void render(GameContainer container, StateBasedGame game, Graphics g, int x, int y, int height, int width, int playerIndex) throws SlickException {
+    public void render(GameContainer container, StateBasedGame game, Graphics g, Player player) throws SlickException {
+        float x = player.windowPos[0];
+        float y = player.windowPos[1];
         g.setColor(Color.black);
         for (int i = 0; i < lines.size(); i++) {
             String line = lines.get(i);
@@ -48,7 +51,7 @@ public class MainWindow extends Window {
     }
 
     @Override
-    public void init(GameContainer container, StateBasedGame game, int playerIndex) throws SlickException {
+    public void init(GameContainer container, StateBasedGame game, Player player) throws SlickException {
         try {
             this.reader = new BufferedReader(new FileReader("resources/text.txt"));
         } catch (FileNotFoundException e) {
@@ -80,13 +83,13 @@ public class MainWindow extends Window {
     }
 
     @Override
-    public void update(GameContainer container, StateBasedGame game, int delta, int playerIndex) throws SlickException {
+    public void update(GameContainer container, StateBasedGame game, int delta, Player player) throws SlickException {
         lineOffset += delta / TICK_LENGTH;
         // react to key presses for that player
     }
 
     @Override
-    public void enter(GameContainer container, StateBasedGame game, int playerIndex) {
+    public void enter(GameContainer container, StateBasedGame game, Player player) {
     }
 }
 
