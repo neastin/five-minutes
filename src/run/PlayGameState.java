@@ -25,8 +25,6 @@ public class PlayGameState extends BasicGameState {
 
     public PlayGameState() {
         super();
-        float[] p1Pos = { 50, 50 };
-        float[] p2Pos = { 450, 50 };
         float[] p1WinSize = { 399, 600 };
         float[] p2WinSize = { 399, 600 };
         float[] p1WinPos = { 0, 0 };

@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.UnicodeFont;
@@ -50,7 +49,7 @@ public class MainWindow extends Window {
             g.drawString(line, x + MARGIN, y + MARGIN + LINE_HEIGHT * i - lineOffset);
         }
 
-        g.drawImage(new Image("resources/face.png"), mainPlayerPos[0], mainPlayerPos[1]);
+        player.render(container, game, g, mainPlayerPos[0], mainPlayerPos[1]);
     }
 
     @Override

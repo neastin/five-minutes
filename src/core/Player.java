@@ -2,6 +2,12 @@ package core;
 
 import java.util.HashMap;
 
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.StateBasedGame;
+
 public class Player {
 
     // public float[] pos;
@@ -13,6 +19,11 @@ public class Player {
         this.windowPos = startWindowPos;
         this.windowSize = startWindowSize;
         this.buttons = playerButtons;
+    }
+
+    public void render(GameContainer container, StateBasedGame game, Graphics g, float x, float y)
+            throws SlickException {
+        g.drawImage(new Image("resources/face.png"), x, y);
     }
 
     public Integer getButton(String command) {

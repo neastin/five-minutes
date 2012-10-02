@@ -6,7 +6,6 @@ package run;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
@@ -26,7 +25,7 @@ public class MazeWindow extends Window {
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g, Player player) throws SlickException {
-        g.drawImage(new Image("resources/face.png"), mazePlayerPos[0], mazePlayerPos[1]);
+        player.render(container, game, g, mazePlayerPos[0], mazePlayerPos[1]);
     }
 
     @Override
