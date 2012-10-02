@@ -1,0 +1,16 @@
+*.class
+
+.classpath
+
+# Package Files #
+*.war
+*.ear
+
+# photoshop files
+*.psd
+
+#stores, logs
+*.log
+.DS_Store
+
+/bin
