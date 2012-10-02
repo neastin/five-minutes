@@ -30,7 +30,7 @@ public class PlayGameState extends BasicGameState {
         float[] p1WinSize = { 399, 600 };
         float[] p2WinSize = { 399, 600 };
         float[] p1WinPos = { 0, 0 };
-        float[] p2WinPos = { 401, 0 };
+        float[] p2WinPos = { 400, 0 };
 
         HashMap<String, Integer> p1Buttons = new HashMap<String, Integer>();
         p1Buttons.put("up", Input.KEY_W);
@@ -46,8 +46,8 @@ public class PlayGameState extends BasicGameState {
         p2Buttons.put("action", Input.KEY_PERIOD);
 
         players = new Player[2];
-        players[0] = new Player(p1Pos, p1WinPos, p1WinSize, p1Buttons);
-        players[1] = new Player(p2Pos, p2WinPos, p2WinSize, p2Buttons);
+        players[0] = new Player(p1WinPos, p1WinSize, p1Buttons);
+        players[1] = new Player(p2WinPos, p2WinSize, p2Buttons);
     }
 
     @Override
@@ -89,13 +89,29 @@ public class PlayGameState extends BasicGameState {
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
         Input input = container.getInput();
-        if (input.isKeyPressed(Input.KEY_ESCAPE)) {
-            container.exit();
-        }
 
-        if (input.isKeyPressed(Input.KEY_SPACE)) {
+        /*
+         * if (input.isKeyPressed(Input.KEY_ESCAPE)) { container.exit(); }
+         */
+
+        // for testing mash
+        if (input.isKeyPressed(Input.KEY_1)) {
             this.states.get(0).push(new MashWindow(players[0]));
             this.states.get(0).peek().init(container, game, players[0]);
+        }
+        if (input.isKeyPressed(Input.KEY_0)) {
+            this.states.get(1).push(new MashWindow(players[1]));
+            this.states.get(1).peek().init(container, game, players[1]);
+        }
+
+        // for testing maze
+        if (input.isKeyPressed(Input.KEY_2)) {
+            this.states.get(0).push(new MazeWindow(players[0]));
+            this.states.get(0).peek().init(container, game, players[0]);
+        }
+        if (input.isKeyPressed(Input.KEY_9)) {
+            this.states.get(1).push(new MazeWindow(players[1]));
+            this.states.get(1).peek().init(container, game, players[1]);
         }
 
         for (int i = 0; i < this.states.size(); i++) {

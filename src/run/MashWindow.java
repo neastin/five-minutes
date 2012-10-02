@@ -1,6 +1,6 @@
 /*
  * Object: MashWindow
- * The view for a minigame in which the player must get to the end of a maze (for some purpose). 
+ * The view for a minigame in which the player must hit action X times (for some purpose). 
  */
 package run;
 
@@ -18,15 +18,17 @@ public class MashWindow extends Window {
     // to be implemented when we have different mash minigames
     // private final String MINIGAME_TYPE = "";
     private int mashCounter = 0;
+    private int mashGoal;
 
     public MashWindow(Player player) {
         super(player);
+        mashGoal = 20;
     }
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g, Player player) throws SlickException {
         g.setColor(Color.gray);
-        g.drawString("Counter: " + mashCounter, 100, 100);
+        g.drawString("Counter: " + mashCounter, 100 + player.windowPos[0], 100);
     }
 
     @Override
@@ -41,7 +43,7 @@ public class MashWindow extends Window {
             mashCounter += 1;
         }
 
-        if (mashCounter >= 20) {
+        if (mashCounter >= mashGoal) {
             this.over = true;
         }
     }

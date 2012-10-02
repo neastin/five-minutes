@@ -32,6 +32,8 @@ public class MainWindow extends Window {
     private int lineOffset;
     private UnicodeFont font;
 
+    private float[] mainPlayerPos = new float[2];
+
     public MainWindow(Player player) {
         super(player);
         font = new UnicodeFont(java.awt.Font.decode("Arial"));
@@ -48,11 +50,13 @@ public class MainWindow extends Window {
             g.drawString(line, x + MARGIN, y + MARGIN + LINE_HEIGHT * i - lineOffset);
         }
 
-        g.drawImage(new Image("resources/face.png"), player.pos[0], player.pos[1]);
+        g.drawImage(new Image("resources/face.png"), mainPlayerPos[0], mainPlayerPos[1]);
     }
 
     @Override
     public void init(GameContainer container, StateBasedGame game, Player player) throws SlickException {
+        mainPlayerPos[0] = player.windowPos[0] + 50;
+        mainPlayerPos[1] = player.windowPos[1] + 50;
         try {
             this.reader = new BufferedReader(new FileReader("resources/text.txt"));
         } catch (FileNotFoundException e) {
@@ -89,11 +93,11 @@ public class MainWindow extends Window {
         lineOffset += delta / TICK_LENGTH;
 
         Input input = container.getInput();
-        if (input.isKeyPressed(player.getButton("left"))) {
-            player.pos[0] -= 15;
+        if (input.isKeyDown(player.getButton("left"))) {
+            mainPlayerPos[0] -= delta * .2f;
         }
-        if (input.isKeyPressed(player.getButton("right"))) {
-            player.pos[0] += 15;
+        if (input.isKeyDown(player.getButton("right"))) {
+            mainPlayerPos[0] += delta * .2f;
         }
     }
 
