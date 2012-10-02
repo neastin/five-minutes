@@ -4,8 +4,6 @@
  */
 package run;
 
-import core.TextBlock;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -37,7 +35,8 @@ public class MainWindow extends Window {
     }
 
     @Override
-    public void render(GameContainer container, StateBasedGame game, Graphics g, int x, int y, int height, int width, int playerIndex) throws SlickException {
+    public void render(GameContainer container, StateBasedGame game, Graphics g, int x, int y, int height, int width,
+            int playerIndex) throws SlickException {
         g.setColor(Color.black);
         for (int i = 0; i < lines.size(); i++) {
             String line = lines.get(i);
@@ -58,7 +57,8 @@ public class MainWindow extends Window {
         try {
             for (String words = reader.readLine(); words != null; words = reader.readLine()) {
                 for (String word : words.split("\\s")) {
-                    if (word.length() == 0) continue;
+                    if (word.length() == 0)
+                        continue;
 
                     if (currentString.length() > 0) {
                         currentString.append(' ');
@@ -89,4 +89,3 @@ public class MainWindow extends Window {
     public void enter(GameContainer container, StateBasedGame game, int playerIndex) {
     }
 }
-

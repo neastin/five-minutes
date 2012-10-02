@@ -1,16 +1,13 @@
 package run;
 
-import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Stack;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -32,7 +29,7 @@ public class PlayGameState extends BasicGameState {
         XS[0] = 0;
         XS[1] = 410;
         YS[0] = 0;
-        YS[1]= 0;
+        YS[1] = 0;
         HEIGHTS[0] = 600;
         HEIGHTS[1] = 600;
         WIDTHS[0] = 390;
@@ -45,7 +42,7 @@ public class PlayGameState extends BasicGameState {
         Image im = this.background;
         g.drawImage(im, 0, 0);
 
-        //g.fillRect(390, 0, 20, 599);
+        // g.fillRect(390, 0, 20, 599);
         // maintain two internal states. Render one on each side of the screen
         for (int i = 0; i < this.states.size(); i++) {
             Stack<Window> stack = this.states.get(i);
@@ -61,10 +58,9 @@ public class PlayGameState extends BasicGameState {
         this.states = new ArrayList<Stack<Window>>();
         Stack<Window> states1 = new Stack<Window>();
         Stack<Window> states2 = new Stack<Window>();
-        MainWindow startState = new MainWindow();
 
-        states1.push(startState);
-        states2.push(startState);
+        states1.push(new MainWindow());
+        states2.push(new MainWindow());
 
         states.add(states1);
         states.add(states2);
@@ -83,10 +79,20 @@ public class PlayGameState extends BasicGameState {
             container.exit();
         }
 
+        if (input.isKeyPressed(Input.KEY_SPACE)) {
+            this.states.get(0).push(new MashWindow());
+            this.states.get(0).peek().init(container, game, 0);
+        }
+
         for (int i = 0; i < this.states.size(); i++) {
             Stack<Window> stack = this.states.get(i);
             Window windowedState = stack.peek();
             windowedState.update(container, game, delta, i);
+
+            // note: update before or after?
+            if (windowedState.over() == true) {
+                stack.pop();
+            }
         }
     }
 
