@@ -19,8 +19,8 @@ public class MashWindow extends Window {
     // private final String MINIGAME_TYPE = "";
     private int mashCounter = 0;
 
-    public MashWindow() {
-        super();
+    public MashWindow(Player player) {
+        super(player);
     }
 
     @Override

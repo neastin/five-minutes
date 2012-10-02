@@ -17,11 +17,13 @@ import core.Player;
 public class Window {
 
     protected boolean over = false;
+    protected Player player;
 
     /*
      * Constructor that allows for providing of a stateID
      */
-    public Window() {
+    public Window(Player player) {
+        this.player = player;
     }
 
     public void render(GameContainer container, StateBasedGame game, Graphics g, Player player) throws SlickException {
@@ -29,6 +31,7 @@ public class Window {
     }
 
     public void init(GameContainer container, StateBasedGame game, Player player) throws SlickException {
+
     }
 
     public void update(GameContainer container, StateBasedGame game, int delta, Player player) throws SlickException {
