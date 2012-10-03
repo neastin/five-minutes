@@ -24,7 +24,8 @@ public class Game extends StateBasedGame {
         app.setVerbose(false);
         app.setDisplayMode(800, 600, false);
         app.setVSync(true);
-        app.setShowFPS(false);
+        app.setShowFPS(true);
+        app.setTargetFrameRate(60);
         app.start();
     }
 }
