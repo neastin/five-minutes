@@ -21,7 +21,7 @@ public class Player {
         this.windowSize = startWindowSize;
         this.buttons = playerButtons;
         try {
-            this.playerSprite = new Image("resources/face.png");
+            this.playerSprite = new Image("resources/ninja.png");
         } catch (SlickException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
