@@ -40,7 +40,9 @@ public class MainWindow extends Window {
     public void render(GameContainer container, StateBasedGame game, Graphics g, Player player) throws SlickException {
         for (int i = 0; i < lines.size(); i++) {
             TextBlock line = lines.get(i);
-            line.render(container, game, g, player);
+            if (-500 < line.pos[1] && line.pos[1] < 1500) {
+                line.render(container, game, g, player);
+            }
         }
 
         player.render(container, game, g, playerPos[0], playerPos[1]);
