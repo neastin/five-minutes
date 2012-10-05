@@ -4,8 +4,6 @@
  */
 package run;
 
-import core.TextBlock;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -21,6 +19,7 @@ import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.state.StateBasedGame;
 
 import core.Player;
+import core.TextBlock;
 
 public class MainWindow extends Window {
 
@@ -69,7 +68,10 @@ public class MainWindow extends Window {
                         continue;
 
                     if (currentString.length() > 0) {
-                        currentString.append(' ');
+                        long gap = Math.round(6 * Math.random());
+                        for (int i = 0; i <= gap; i++) {
+                            currentString.append(' ');
+                        }
                     }
                     currentString.append(word);
 
