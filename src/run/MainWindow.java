@@ -33,8 +33,6 @@ public class MainWindow extends Window {
     private int lineOffset;
     private UnicodeFont font;
 
-    private float[] mainPlayerPos = new float[2];
-
     public MainWindow(Player player) {
         super(player);
         font = new UnicodeFont(java.awt.Font.decode("Arial"));
@@ -45,19 +43,19 @@ public class MainWindow extends Window {
     public void render(GameContainer container, StateBasedGame game, Graphics g, Player player) throws SlickException {
         float x = player.windowPos[0];
         float y = player.windowPos[1];
-        g.setColor(Color.black);
         for (int i = 0; i < lines.size(); i++) {
             TextBlock line = lines.get(i);
+            g.setColor(line.color);
             g.drawString(line.text, x + MARGIN, y + MARGIN + LINE_HEIGHT * i - lineOffset);
         }
 
-        player.render(container, game, g, mainPlayerPos[0], mainPlayerPos[1]);
+        player.render(container, game, g, playerPos[0], mainPlayerPos[1]);
     }
 
     @Override
     public void init(GameContainer container, StateBasedGame game, Player player) throws SlickException {
-        mainPlayerPos[0] = player.windowPos[0] + 50;
-        mainPlayerPos[1] = player.windowPos[1] + 50;
+        playerPos[0] = player.windowPos[0] + 50;
+        playerPos[1] = player.windowPos[1] + 50;
         try {
             this.reader = new BufferedReader(new FileReader("resources/text.txt"));
         } catch (FileNotFoundException e) {
@@ -78,7 +76,7 @@ public class MainWindow extends Window {
                     if (font.getWidth(currentString.toString()) > SCREEN_WIDTH) {
                         // FIXME: this will cause problems with one-word lines.
                         int prevLength = currentString.length() - word.length() - 1;
-                        lines.add(new TextBlock(currentString.substring(0, prevLength)));
+                        lines.add(new TextBlock(currentString.substring(0, prevLength), g.getFont(), x, y));
                         currentString.delete(0, prevLength + 1);
                     }
                 }
@@ -91,14 +89,22 @@ public class MainWindow extends Window {
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta, Player player) throws SlickException {
-        lineOffset += delta / TICK_LENGTH;
 
         Input input = container.getInput();
         if (input.isKeyDown(player.getButton("left"))) {
-            mainPlayerPos[0] -= delta * .2f;
+            playerPos[0] -= delta * .2f;
         }
         if (input.isKeyDown(player.getButton("right"))) {
-            mainPlayerPos[0] += delta * .2f;
+            playerPos[0] += delta * .2f;
+        }
+
+        lineOffset += delta / TICK_LENGTH;
+        float movement = (float)delta/(float)TICK_LENGTH;
+        for (int i = 0; i < lines.size(); i++) {
+            boolean result = lines.get(i).update(movement, player);
+            if (result) {
+                System.out.println("COLLISION");
+            }
         }
     }
 
