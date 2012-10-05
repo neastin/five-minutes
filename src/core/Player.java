@@ -6,8 +6,8 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.state.StateBasedGame;
 
 public class Player {
 
@@ -17,6 +17,8 @@ public class Player {
     private HashMap<String, Integer> buttons;
     private Image playerSprite;
     public Rectangle boundingBox;
+    public int pWidth = 40;
+    public int pHeight = 40;
 
     public Player(float[] startWindowPos, float[] startWindowSize, HashMap<String, Integer> playerButtons) {
         windowPos = startWindowPos;

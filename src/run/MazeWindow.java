@@ -66,22 +66,22 @@ public class MazeWindow extends Window {
 
         float moveValue = delta * .2f;
         if (input.isKeyDown(player.getButton("left"))) {
-            if (!(new Rectangle(playerPos[0] - moveValue, playerPos[1], 20, 20).intersects(maze))) {
+            if (!(new Rectangle(playerPos[0] - moveValue, playerPos[1], player.pWidth, player.pHeight).intersects(maze))) {
                 playerPos[0] -= moveValue;
             }
         }
         if (input.isKeyDown(player.getButton("right"))) {
-            if (!(new Rectangle(playerPos[0] + moveValue, playerPos[1], 20, 20).intersects(maze))) {
+            if (!(new Rectangle(playerPos[0] + moveValue, playerPos[1], player.pWidth, player.pHeight).intersects(maze))) {
                 playerPos[0] += moveValue;
             }
         }
         if (input.isKeyDown(player.getButton("up"))) {
-            if (!(new Rectangle(playerPos[0], playerPos[1] - moveValue, 20, 20).intersects(maze))) {
+            if (!(new Rectangle(playerPos[0], playerPos[1] - moveValue, player.pWidth, player.pHeight).intersects(maze))) {
                 playerPos[1] -= moveValue;
             }
         }
         if (input.isKeyDown(player.getButton("down"))) {
-            if (!(new Rectangle(playerPos[0], playerPos[1] + moveValue, 20, 20).intersects(maze))) {
+            if (!(new Rectangle(playerPos[0], playerPos[1] + moveValue, player.pWidth, player.pHeight).intersects(maze))) {
                 playerPos[1] += moveValue;
             }
         }
