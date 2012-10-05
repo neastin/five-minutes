@@ -87,7 +87,6 @@ public class MainWindow extends Window {
         String fontPath = "resources/cantarell.ttf";
         UnicodeFont uFont = new UnicodeFont(fontPath, 20, false, false);
         uFont.addAsciiGlyphs();
-        uFont.addGlyphs(400, 600);
         uFont.getEffects().add(new ColorEffect(java.awt.Color.WHITE));
         uFont.loadGlyphs();
 
