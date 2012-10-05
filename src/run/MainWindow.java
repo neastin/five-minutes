@@ -9,6 +9,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.awt.Font;
+import java.util.List;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -17,6 +19,9 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.util.ResourceLoader;
+import org.newdawn.slick.font.effects.ColorEffect;
+import org.newdawn.slick.font.effects.Effect;
 
 import core.Player;
 import core.TextBlock;
@@ -40,15 +45,12 @@ public class MainWindow extends Window {
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g, Player player) throws SlickException {
-        float x = player.windowPos[0];
-        float y = player.windowPos[1];
         for (int i = 0; i < lines.size(); i++) {
             TextBlock line = lines.get(i);
-            g.setColor(line.color);
-            g.drawString(line.text, x + MARGIN, y + MARGIN + LINE_HEIGHT * i - lineOffset);
+            line.render(container, game, g, player);
         }
 
-        player.render(container, game, g, playerPos[0], mainPlayerPos[1]);
+        player.render(container, game, g, playerPos[0], playerPos[1]);
     }
 
     @Override
@@ -61,7 +63,18 @@ public class MainWindow extends Window {
             throw new SlickException(e.getMessage());
         }
         StringBuilder currentString = new StringBuilder(120); // Capacity of buffer.
+
+        String fontPath = "resources/cantarell.ttf";
+        UnicodeFont uFont = new UnicodeFont(fontPath , 20, false, false);
+        uFont.addAsciiGlyphs();
+        uFont.addGlyphs(400, 600);
+        uFont.getEffects().add(new ColorEffect(java.awt.Color.WHITE));
+        uFont.loadGlyphs();
+
         try {
+            int counter = 0;
+            float x = player.windowPos[0];
+            float y = player.windowPos[1];
             for (String words = reader.readLine(); words != null; words = reader.readLine()) {
                 for (String word : words.split("\\s")) {
                     if (word.length() == 0)
@@ -78,12 +91,14 @@ public class MainWindow extends Window {
                     if (font.getWidth(currentString.toString()) > SCREEN_WIDTH) {
                         // FIXME: this will cause problems with one-word lines.
                         int prevLength = currentString.length() - word.length() - 1;
-                        lines.add(new TextBlock(currentString.substring(0, prevLength), g.getFont(), x, y));
+                        lines.add(new TextBlock(currentString.substring(0, prevLength), uFont, x + MARGIN, y + MARGIN + LINE_HEIGHT * counter - lineOffset));
+                        counter++;
                         currentString.delete(0, prevLength + 1);
                     }
                 }
             }
-            lines.add(new TextBlock(currentString.toString()));
+            lines.add(new TextBlock(currentString.toString(), uFont, x + MARGIN, y + MARGIN + LINE_HEIGHT * counter - lineOffset));
+            counter++;
         } catch (IOException e) {
             throw new SlickException(e.getMessage());
         }
@@ -101,11 +116,12 @@ public class MainWindow extends Window {
         }
 
         lineOffset += delta / TICK_LENGTH;
-        float movement = (float)delta/(float)TICK_LENGTH;
+        float movement = -(float)delta/(float)TICK_LENGTH;
         for (int i = 0; i < lines.size(); i++) {
-            boolean result = lines.get(i).update(movement, player);
+            TextBlock line = lines.get(i);
+            boolean result = line.update(movement, player);
             if (result) {
-                System.out.println("COLLISION");
+                line.color = Color.red;
             }
         }
     }

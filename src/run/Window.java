@@ -18,7 +18,7 @@ public class Window {
 
     protected boolean over = false;
     protected Player player;
-
+    protected float[] playerPos = new float[2];
     /*
      * Constructor that allows for providing of a stateID
      */

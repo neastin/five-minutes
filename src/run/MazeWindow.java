@@ -17,7 +17,6 @@ import core.Player;
 
 public class MazeWindow extends Window {
 
-    private float[] mazePlayerPos = new float[2];
     private float[] goalPos = new float[2];
     private Image goalSprite;
     private Rectangle goalShape;
@@ -37,15 +36,15 @@ public class MazeWindow extends Window {
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g, Player player) throws SlickException {
         g.drawImage(goalSprite, goalPos[0], goalPos[1]);
-        player.render(container, game, g, mazePlayerPos[0], mazePlayerPos[1]);
+        player.render(container, game, g, playerPos[0], playerPos[1]);
 
         g.draw(maze);
     }
 
     @Override
     public void init(GameContainer container, StateBasedGame game, Player player) throws SlickException {
-        mazePlayerPos[0] = player.windowPos[0] + 200;
-        mazePlayerPos[1] = player.windowPos[1] + 170;
+        playerPos[0] = player.windowPos[0] + 200;
+        playerPos[1] = player.windowPos[1] + 170;
 
         goalPos[0] = player.windowPos[0] + 70;
         goalPos[1] = player.windowPos[1] + 100;
@@ -67,27 +66,27 @@ public class MazeWindow extends Window {
 
         float moveValue = delta * .2f;
         if (input.isKeyDown(player.getButton("left"))) {
-            if (!(new Rectangle(mazePlayerPos[0] - moveValue, mazePlayerPos[1], 20, 20).intersects(maze))) {
-                mazePlayerPos[0] -= moveValue;
+            if (!(new Rectangle(playerPos[0] - moveValue, playerPos[1], 20, 20).intersects(maze))) {
+                playerPos[0] -= moveValue;
             }
         }
         if (input.isKeyDown(player.getButton("right"))) {
-            if (!(new Rectangle(mazePlayerPos[0] + moveValue, mazePlayerPos[1], 20, 20).intersects(maze))) {
-                mazePlayerPos[0] += moveValue;
+            if (!(new Rectangle(playerPos[0] + moveValue, playerPos[1], 20, 20).intersects(maze))) {
+                playerPos[0] += moveValue;
             }
         }
         if (input.isKeyDown(player.getButton("up"))) {
-            if (!(new Rectangle(mazePlayerPos[0], mazePlayerPos[1] - moveValue, 20, 20).intersects(maze))) {
-                mazePlayerPos[1] -= moveValue;
+            if (!(new Rectangle(playerPos[0], playerPos[1] - moveValue, 20, 20).intersects(maze))) {
+                playerPos[1] -= moveValue;
             }
         }
         if (input.isKeyDown(player.getButton("down"))) {
-            if (!(new Rectangle(mazePlayerPos[0], mazePlayerPos[1] + moveValue, 20, 20).intersects(maze))) {
-                mazePlayerPos[1] += moveValue;
+            if (!(new Rectangle(playerPos[0], playerPos[1] + moveValue, 20, 20).intersects(maze))) {
+                playerPos[1] += moveValue;
             }
         }
 
-        if ((new Rectangle(mazePlayerPos[0], mazePlayerPos[1], 20, 20).intersects(goalShape))) {
+        if ((new Rectangle(playerPos[0], playerPos[1], 20, 20).intersects(goalShape))) {
             this.over = true;
         }
     }
