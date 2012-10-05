@@ -60,9 +60,7 @@ public class MainWindow extends Window {
             }
         }
         String first = firstBuilder.toString();
-        System.out.println("first: [" + first + "]");
         String second = text.substring(first.length() + 1);
-        System.out.println("second: [" + second + "]");
 
         // Render the second string right-justified.
         float secondX = x - MARGIN + player.windowSize[0] - uFont.getWidth(second);
