@@ -28,15 +28,12 @@ public class MainWindow extends Window {
     private final double TICK_LENGTH = 15; // Milliseconds for text to move one pixel.
     private final int MARGIN = 30;
     private final int MIN_GAP = 30;
-    private final int SCREEN_WIDTH = 250 - 2 * MARGIN; // FIXME: calculate.
     private BufferedReader reader;
     private ArrayList<TextBlock> lines;
     private int lineOffset;
-    private UnicodeFont font;
 
     public MainWindow(Player player) {
         super(player);
-        font = new UnicodeFont(java.awt.Font.decode("Arial"));
         lines = new ArrayList<TextBlock>(300);
     }
 
@@ -52,10 +49,24 @@ public class MainWindow extends Window {
 
     private void addLine(Player player, String text, UnicodeFont uFont, int counter, float x, float y, int lineOffset) {
         if (text.length() == 0) return;
-        String first = text.substring(0, text.length() / 2);
-        String second = text.substring(text.length() / 2);
+
+        String[] words = text.split(" ");
+        int splitWord = (int) (Math.random() * (words.length - 1)) + 1;
+        
+        StringBuilder firstBuilder = new StringBuilder();
+        for (int i = 0; i < splitWord; i++) {
+            firstBuilder.append(words[i]);
+            if (i < splitWord - 1) {
+                firstBuilder.append(" ");
+            }
+        }
+        String first = firstBuilder.toString();
+        System.out.println("first: [" + first + "]");
+        String second = text.substring(first.length() + 1);
+        System.out.println("second: [" + second + "]");
+
         // Render the second string right-justified.
-        float secondX = x +player.windowSize[0] - uFont.getWidth(second);
+        float secondX = x - MARGIN + player.windowSize[0] - uFont.getWidth(second);
         lines.add(new TextBlock(first, uFont, x + MARGIN, y + MARGIN
                 + LINE_HEIGHT * counter - lineOffset));
         lines.add(new TextBlock(second, uFont, secondX, y + MARGIN
