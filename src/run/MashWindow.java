@@ -39,7 +39,8 @@ public class MashWindow extends Window {
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta, Player player) throws SlickException {
         Input input = container.getInput();
-        if (input.isKeyPressed(player.getButton("action"))) {
+        if (input.isKeyPressed(player.getButton("left")) || input.isKeyPressed(player.getButton("right"))
+                || input.isKeyPressed(player.getButton("up")) || input.isKeyPressed(player.getButton("down"))) {
             mashCounter += 1;
         }
 
