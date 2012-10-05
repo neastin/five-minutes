@@ -9,8 +9,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.awt.Font;
-import java.util.List;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -18,10 +16,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.UnicodeFont;
-import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.util.ResourceLoader;
 import org.newdawn.slick.font.effects.ColorEffect;
-import org.newdawn.slick.font.effects.Effect;
+import org.newdawn.slick.state.StateBasedGame;
 
 import core.Player;
 import core.TextBlock;
@@ -65,7 +61,7 @@ public class MainWindow extends Window {
         StringBuilder currentString = new StringBuilder(120); // Capacity of buffer.
 
         String fontPath = "resources/cantarell.ttf";
-        UnicodeFont uFont = new UnicodeFont(fontPath , 20, false, false);
+        UnicodeFont uFont = new UnicodeFont(fontPath, 20, false, false);
         uFont.addAsciiGlyphs();
         uFont.addGlyphs(400, 600);
         uFont.getEffects().add(new ColorEffect(java.awt.Color.WHITE));
@@ -91,13 +87,15 @@ public class MainWindow extends Window {
                     if (font.getWidth(currentString.toString()) > SCREEN_WIDTH) {
                         // FIXME: this will cause problems with one-word lines.
                         int prevLength = currentString.length() - word.length() - 1;
-                        lines.add(new TextBlock(currentString.substring(0, prevLength), uFont, x + MARGIN, y + MARGIN + LINE_HEIGHT * counter - lineOffset));
+                        lines.add(new TextBlock(currentString.substring(0, prevLength), uFont, x + MARGIN, y + MARGIN
+                                + LINE_HEIGHT * counter - lineOffset));
                         counter++;
                         currentString.delete(0, prevLength + 1);
                     }
                 }
             }
-            lines.add(new TextBlock(currentString.toString(), uFont, x + MARGIN, y + MARGIN + LINE_HEIGHT * counter - lineOffset));
+            lines.add(new TextBlock(currentString.toString(), uFont, x + MARGIN, y + MARGIN + LINE_HEIGHT * counter
+                    - lineOffset));
             counter++;
         } catch (IOException e) {
             throw new SlickException(e.getMessage());
@@ -108,15 +106,16 @@ public class MainWindow extends Window {
     public void update(GameContainer container, StateBasedGame game, int delta, Player player) throws SlickException {
 
         Input input = container.getInput();
-        if (input.isKeyDown(player.getButton("left"))) {
+        if (input.isKeyDown(player.getButton("left")) && (playerPos[0] > player.windowPos[0] + player.pWidth)) {
             playerPos[0] -= delta * .2f;
         }
-        if (input.isKeyDown(player.getButton("right"))) {
+        if (input.isKeyDown(player.getButton("right"))
+                && (playerPos[0] < player.windowPos[0] + player.windowSize[0] - player.pWidth)) {
             playerPos[0] += delta * .2f;
         }
 
         lineOffset += delta / TICK_LENGTH;
-        float movement = -(float)delta/(float)TICK_LENGTH;
+        float movement = -(float) delta / (float) TICK_LENGTH;
         for (int i = 0; i < lines.size(); i++) {
             TextBlock line = lines.get(i);
             boolean result = line.update(movement, player);
