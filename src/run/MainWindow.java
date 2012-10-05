@@ -27,7 +27,7 @@ public class MainWindow extends Window {
     private final int LINE_HEIGHT = 100; // Distance between baselines of successive lines of text.
     private final double TICK_LENGTH = 15; // Milliseconds for text to move one pixel.
     private final int MARGIN = 30;
-    private final int MIN_GAP = 30;
+    private final int MIN_GAP = 50;
     private BufferedReader reader;
     private ArrayList<TextBlock> lines;
 
