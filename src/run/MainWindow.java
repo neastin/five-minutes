@@ -27,6 +27,7 @@ public class MainWindow extends Window {
     private final int LINE_HEIGHT = 100; // Distance between baselines of successive lines of text.
     private final double TICK_LENGTH = 15; // Milliseconds for text to move one pixel.
     private final int MARGIN = 30;
+    private final int MIN_GAP = 30;
     private final int SCREEN_WIDTH = 250 - 2 * MARGIN; // FIXME: calculate.
     private BufferedReader reader;
     private ArrayList<TextBlock> lines;
@@ -36,7 +37,7 @@ public class MainWindow extends Window {
     public MainWindow(Player player) {
         super(player);
         font = new UnicodeFont(java.awt.Font.decode("Arial"));
-        lines = new ArrayList<TextBlock>(200);
+        lines = new ArrayList<TextBlock>(300);
     }
 
     @Override
@@ -48,6 +49,19 @@ public class MainWindow extends Window {
 
         player.render(container, game, g, playerPos[0], playerPos[1]);
     }
+
+    private void addLine(Player player, String text, UnicodeFont uFont, int counter, float x, float y, int lineOffset) {
+        if (text.length() == 0) return;
+        String first = text.substring(0, text.length() / 2);
+        String second = text.substring(text.length() / 2);
+        // Render the second string right-justified.
+        float secondX = x +player.windowSize[0] - uFont.getWidth(second);
+        lines.add(new TextBlock(first, uFont, x + MARGIN, y + MARGIN
+                + LINE_HEIGHT * counter - lineOffset));
+        lines.add(new TextBlock(second, uFont, secondX, y + MARGIN
+                + LINE_HEIGHT * counter - lineOffset));
+    }
+
 
     @Override
     public void init(GameContainer container, StateBasedGame game, Player player) throws SlickException {
@@ -73,29 +87,24 @@ public class MainWindow extends Window {
             float y = player.windowPos[1];
             for (String words = reader.readLine(); words != null; words = reader.readLine()) {
                 for (String word : words.split("\\s")) {
-                    if (word.length() == 0)
-                        continue;
+                    if (word.length() == 0) continue;
 
                     if (currentString.length() > 0) {
-                        long gap = Math.round(6 * Math.random());
-                        for (int i = 0; i <= gap; i++) {
-                            currentString.append(' ');
-                        }
+                        currentString.append(' ');
                     }
                     currentString.append(word);
 
-                    if (font.getWidth(currentString.toString()) > SCREEN_WIDTH) {
-                        // FIXME: this will cause problems with one-word lines.
+                    if (uFont.getWidth(currentString.toString()) > 
+                            player.windowSize[0] - 2 * MARGIN - MIN_GAP) {
+                        // this will cause problems with one-word lines.
                         int prevLength = currentString.length() - word.length() - 1;
-                        lines.add(new TextBlock(currentString.substring(0, prevLength), uFont, x + MARGIN, y + MARGIN
-                                + LINE_HEIGHT * counter - lineOffset));
+                        addLine(player, currentString.substring(0, prevLength), uFont, counter, x, y, lineOffset);
                         counter++;
                         currentString.delete(0, prevLength + 1);
                     }
                 }
             }
-            lines.add(new TextBlock(currentString.toString(), uFont, x + MARGIN, y + MARGIN + LINE_HEIGHT * counter
-                    - lineOffset));
+            addLine(player, currentString.toString(), uFont, counter, x, y, lineOffset);
             counter++;
         } catch (IOException e) {
             throw new SlickException(e.getMessage());
