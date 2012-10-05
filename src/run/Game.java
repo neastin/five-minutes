@@ -23,7 +23,6 @@ public class Game extends StateBasedGame {
         AppGameContainer app = new AppGameContainer(new Game());
         app.setVerbose(false);
         app.setDisplayMode(800, 600, false);
-        app.setVSync(true);
         app.setShowFPS(true);
         app.setTargetFrameRate(60);
         app.start();
