@@ -30,7 +30,6 @@ public class MainWindow extends Window {
     private final int MIN_GAP = 30;
     private BufferedReader reader;
     private ArrayList<TextBlock> lines;
-    private int lineOffset;
 
     public MainWindow(Player player) {
         super(player);
@@ -47,7 +46,7 @@ public class MainWindow extends Window {
         player.render(container, game, g, playerPos[0], playerPos[1]);
     }
 
-    private void addLine(Player player, String text, UnicodeFont uFont, int counter, float x, float y, int lineOffset) {
+    private void addLine(Player player, String text, UnicodeFont uFont, int counter, float x, float y) {
         if (text.length() == 0) return;
 
         String[] words = text.split(" ");
@@ -68,9 +67,9 @@ public class MainWindow extends Window {
         // Render the second string right-justified.
         float secondX = x - MARGIN + player.windowSize[0] - uFont.getWidth(second);
         lines.add(new TextBlock(first, uFont, x + MARGIN, y + MARGIN
-                + LINE_HEIGHT * counter - lineOffset));
+                + LINE_HEIGHT * counter));
         lines.add(new TextBlock(second, uFont, secondX, y + MARGIN
-                + LINE_HEIGHT * counter - lineOffset));
+                + LINE_HEIGHT * counter));
     }
 
 
@@ -109,13 +108,13 @@ public class MainWindow extends Window {
                             player.windowSize[0] - 2 * MARGIN - MIN_GAP) {
                         // this will cause problems with one-word lines.
                         int prevLength = currentString.length() - word.length() - 1;
-                        addLine(player, currentString.substring(0, prevLength), uFont, counter, x, y, lineOffset);
+                        addLine(player, currentString.substring(0, prevLength), uFont, counter, x, y);
                         counter++;
                         currentString.delete(0, prevLength + 1);
                     }
                 }
             }
-            addLine(player, currentString.toString(), uFont, counter, x, y, lineOffset);
+            addLine(player, currentString.toString(), uFont, counter, x, y);
             counter++;
         } catch (IOException e) {
             throw new SlickException(e.getMessage());
@@ -134,7 +133,6 @@ public class MainWindow extends Window {
             playerPos[0] += delta * .2f;
         }
 
-        lineOffset += delta / TICK_LENGTH;
         float movement = -(float) delta / (float) TICK_LENGTH;
         for (int i = 0; i < lines.size(); i++) {
             TextBlock line = lines.get(i);
