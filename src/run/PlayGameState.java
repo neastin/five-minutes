@@ -97,8 +97,8 @@ public class PlayGameState extends BasicGameState {
         states.add(states1);
         states.add(states2);
 
-        String fontPath = "resources/cantarell.ttf";
-        uFont = new UnicodeFont(fontPath, 20, false, false);
+        String fontPath = "resources/OldLondon.ttf";
+        uFont = new UnicodeFont(fontPath, 25, false, false);
         uFont.addAsciiGlyphs();
         uFont.getEffects().add(new ColorEffect(java.awt.Color.WHITE));
         uFont.loadGlyphs();
