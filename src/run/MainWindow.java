@@ -50,11 +50,12 @@ public class MainWindow extends Window {
     }
 
     private void addLine(Player player, String text, UnicodeFont uFont, int counter, float x, float y) {
-        if (text.length() == 0) return;
+        if (text.length() == 0)
+            return;
 
         String[] words = text.split(" ");
         int splitWord = (int) (Math.random() * (words.length - 1)) + 1;
-        
+
         StringBuilder firstBuilder = new StringBuilder();
         for (int i = 0; i < splitWord; i++) {
             firstBuilder.append(words[i]);
@@ -67,19 +68,16 @@ public class MainWindow extends Window {
 
         // Render the second string right-justified.
         float secondX = x - MARGIN + player.windowSize[0] - uFont.getWidth(second);
-        lines.add(new TextBlock(first, uFont, x + MARGIN, y + MARGIN + Y_OFFSET
-                + LINE_HEIGHT * counter));
-        lines.add(new TextBlock(second, uFont, secondX, y + MARGIN + Y_OFFSET
-                + LINE_HEIGHT * counter));
+        lines.add(new TextBlock(first, uFont, x + MARGIN, y + MARGIN + Y_OFFSET + LINE_HEIGHT * counter));
+        lines.add(new TextBlock(second, uFont, secondX, y + MARGIN + Y_OFFSET + LINE_HEIGHT * counter));
     }
-
 
     @Override
     public void init(GameContainer container, StateBasedGame game, Player player) throws SlickException {
         playerPos[0] = player.windowPos[0] + 50;
         playerPos[1] = player.windowPos[1] + 50;
         try {
-            this.reader = new BufferedReader(new FileReader("resources/text.txt"));
+            this.reader = new BufferedReader(new FileReader("resources/story.txt"));
         } catch (FileNotFoundException e) {
             throw new SlickException(e.getMessage());
         }
@@ -97,15 +95,15 @@ public class MainWindow extends Window {
             float y = player.windowPos[1];
             for (String words = reader.readLine(); words != null; words = reader.readLine()) {
                 for (String word : words.split("\\s")) {
-                    if (word.length() == 0) continue;
+                    if (word.length() == 0)
+                        continue;
 
                     if (currentString.length() > 0) {
                         currentString.append(' ');
                     }
                     currentString.append(word);
 
-                    if (uFont.getWidth(currentString.toString()) > 
-                            player.windowSize[0] - 2 * MARGIN - MIN_GAP) {
+                    if (uFont.getWidth(currentString.toString()) > player.windowSize[0] - 2 * MARGIN - MIN_GAP) {
                         // this will cause problems with one-word lines.
                         int prevLength = currentString.length() - word.length() - 1;
                         addLine(player, currentString.substring(0, prevLength), uFont, counter, x, y);
@@ -148,7 +146,7 @@ public class MainWindow extends Window {
             boolean result = line.update(movement, player);
             if (result && line.color != Color.red) {
                 double rand = Math.random();
-                PlayGameState state = (PlayGameState)(game.getCurrentState());
+                PlayGameState state = (PlayGameState) (game.getCurrentState());
                 if (rand < 0.1) {
                     state.triggerMinigame(container, game, player, new MashWindow(player));
                 } else if (rand < 0.2) {
