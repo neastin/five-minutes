@@ -24,8 +24,8 @@ import core.TextBlock;
 
 public class MainWindow extends Window {
 
-    private final int LINE_HEIGHT = 100; // Distance between baselines of successive lines of text.
-    private final double TICK_LENGTH = 15; // Milliseconds for text to move one pixel.
+    private final int LINE_HEIGHT = 120; // Distance between baselines of successive lines of text.
+    private final double TICK_LENGTH = 11; // Milliseconds for text to move one pixel.
     private final int MARGIN = 30;
     private final int MIN_GAP = 50;
     private final int Y_OFFSET = 300;
@@ -125,13 +125,22 @@ public class MainWindow extends Window {
     public void update(GameContainer container, StateBasedGame game, int delta, Player player) throws SlickException {
 
         Input input = container.getInput();
-        if (input.isKeyDown(player.getButton("left")) && (playerPos[0] > player.windowPos[0] + player.pWidth)) {
+        if (input.isKeyDown(player.getButton("left"))) {
             playerPos[0] -= delta * .2f;
         }
-        if (input.isKeyDown(player.getButton("right"))
-                && (playerPos[0] < player.windowPos[0] + player.windowSize[0] - player.pWidth)) {
+        if (input.isKeyDown(player.getButton("right"))) {
             playerPos[0] += delta * .2f;
         }
+        if (input.isKeyDown(player.getButton("up"))) {
+            playerPos[1] -= delta * .2f;
+        }
+        if (input.isKeyDown(player.getButton("down"))) {
+            playerPos[1] += delta * .2f;
+        }
+        playerPos[0] = Math.max(playerPos[0], player.windowPos[0] + player.pWidth);
+        playerPos[0] = Math.min(playerPos[0], player.windowPos[0] + player.windowSize[0] - player.pWidth);
+        playerPos[1] = Math.max(playerPos[1], player.windowPos[1] + player.pWidth);
+        playerPos[1] = Math.min(playerPos[1], player.windowPos[1] + player.windowSize[1] - player.pWidth);
 
         float movement = -(float) delta / (float) TICK_LENGTH;
         for (int i = 0; i < lines.size(); i++) {
