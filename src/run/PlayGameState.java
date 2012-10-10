@@ -2,8 +2,8 @@ package run;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Stack;
 import java.util.Set;
+import java.util.Stack;
 import java.util.TreeSet;
 
 import org.newdawn.slick.GameContainer;
@@ -80,7 +80,7 @@ public class PlayGameState extends BasicGameState {
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         this.background = new Image("resources/big-background.png");
 
-        Music loop = new Music("resources/music/five-minutes.wav");
+        Music loop = new Music("resources/music/five-minutes_longloop.wav");
         loop.loop();
 
         this.states = new ArrayList<Stack<Window>>();
@@ -113,22 +113,6 @@ public class PlayGameState extends BasicGameState {
             container.exit();
         }
 
-        // for testing mash
-        if (input.isKeyPressed(Input.KEY_1)) {
-            triggerMinigame(container, game, players[1], new MashWindow(players[1]));
-        }
-        if (input.isKeyPressed(Input.KEY_0)) {
-            triggerMinigame(container, game, players[1], new MashWindow(players[1]));
-        }
-
-        // for testing maze
-        if (input.isKeyPressed(Input.KEY_2)) {
-            triggerMinigame(container, game, players[0], new MazeWindow(players[0]));
-        }
-        if (input.isKeyPressed(Input.KEY_9)) {
-            triggerMinigame(container, game, players[1], new MazeWindow(players[1]));
-        }
-
         if (started) {
             for (int i = 0; i < this.states.size(); i++) {
                 Stack<Window> stack = this.states.get(i);
@@ -143,7 +127,8 @@ public class PlayGameState extends BasicGameState {
         }
     }
 
-    protected void triggerMinigame(GameContainer container, StateBasedGame game, Player player, Window minigame) throws SlickException {
+    protected void triggerMinigame(GameContainer container, StateBasedGame game, Player player, Window minigame)
+            throws SlickException {
         int playerIndex = (player == players[0]) ? 0 : 1;
         this.states.get(playerIndex).push(minigame);
         minigame.init(container, game, player);
