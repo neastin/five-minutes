@@ -28,6 +28,7 @@ public class MainWindow extends Window {
     private final double TICK_LENGTH = 15; // Milliseconds for text to move one pixel.
     private final int MARGIN = 30;
     private final int MIN_GAP = 50;
+    private final int Y_OFFSET = 300;
     private BufferedReader reader;
     private ArrayList<TextBlock> lines;
 
@@ -66,9 +67,9 @@ public class MainWindow extends Window {
 
         // Render the second string right-justified.
         float secondX = x - MARGIN + player.windowSize[0] - uFont.getWidth(second);
-        lines.add(new TextBlock(first, uFont, x + MARGIN, y + MARGIN
+        lines.add(new TextBlock(first, uFont, x + MARGIN, y + MARGIN + Y_OFFSET
                 + LINE_HEIGHT * counter));
-        lines.add(new TextBlock(second, uFont, secondX, y + MARGIN
+        lines.add(new TextBlock(second, uFont, secondX, y + MARGIN + Y_OFFSET
                 + LINE_HEIGHT * counter));
     }
 

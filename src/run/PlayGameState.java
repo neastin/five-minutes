@@ -3,6 +3,8 @@ package run;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -24,6 +26,10 @@ public class PlayGameState extends BasicGameState {
 
     public Image background;
 
+    public boolean started;
+
+    private Set<Integer> startKeys;
+
     public PlayGameState() {
         super();
         float[] p1WinSize = { 399, 600 };
@@ -44,9 +50,15 @@ public class PlayGameState extends BasicGameState {
         p2Buttons.put("right", Input.KEY_RIGHT);
         p2Buttons.put("action", Input.KEY_PERIOD);
 
+        startKeys = new TreeSet<Integer>();
+        startKeys.addAll(p1Buttons.values());
+        startKeys.addAll(p2Buttons.values());
+
         players = new Player[2];
         players[0] = new Player(p1WinPos, p1WinSize, p1Buttons);
         players[1] = new Player(p2WinPos, p2WinSize, p2Buttons);
+
+        started = false;
     }
 
     @Override
@@ -92,6 +104,11 @@ public class PlayGameState extends BasicGameState {
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
         Input input = container.getInput();
 
+        for (int key : startKeys) {
+            if (input.isKeyPressed(key)) {
+                started = true;
+            }
+        }
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
             container.exit();
         }
@@ -112,15 +129,17 @@ public class PlayGameState extends BasicGameState {
             triggerMinigame(container, game, players[1], new MazeWindow(players[1]));
         }
 
-        for (int i = 0; i < this.states.size(); i++) {
-            Stack<Window> stack = this.states.get(i);
-            Window windowedState = stack.peek();
+        if (started) {
+            for (int i = 0; i < this.states.size(); i++) {
+                Stack<Window> stack = this.states.get(i);
+                Window windowedState = stack.peek();
 
-            // note: update before or after?
-            if (windowedState.over() == true) {
-                stack.pop();
+                // note: update before or after?
+                if (windowedState.over() == true) {
+                    stack.pop();
+                }
+                windowedState.update(container, game, delta, players[i]);
             }
-            windowedState.update(container, game, delta, players[i]);
         }
     }
 
