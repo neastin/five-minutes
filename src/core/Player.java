@@ -24,7 +24,7 @@ public class Player {
         windowPos = startWindowPos;
         windowSize = startWindowSize;
         buttons = playerButtons;
-        boundingBox = new Rectangle(0, 0, 40, 40);
+        boundingBox = new Rectangle(10, 10, 30, 30);
         try {
             this.playerSprite = new Image("resources/ninja.png");
         } catch (SlickException e) {
