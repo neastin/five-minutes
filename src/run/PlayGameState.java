@@ -12,6 +12,8 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.UnicodeFont;
+import org.newdawn.slick.font.effects.ColorEffect;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -29,6 +31,8 @@ public class PlayGameState extends BasicGameState {
     public boolean started;
 
     private Set<Integer> startKeys;
+
+    public UnicodeFont uFont;
 
     public PlayGameState() {
         super();
@@ -92,6 +96,12 @@ public class PlayGameState extends BasicGameState {
 
         states.add(states1);
         states.add(states2);
+
+        String fontPath = "resources/cantarell.ttf";
+        uFont = new UnicodeFont(fontPath, 20, false, false);
+        uFont.addAsciiGlyphs();
+        uFont.getEffects().add(new ColorEffect(java.awt.Color.WHITE));
+        uFont.loadGlyphs();
 
         for (int i = 0; i < this.states.size(); i++) {
             Stack<Window> stack = this.states.get(i);

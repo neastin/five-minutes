@@ -16,7 +16,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.UnicodeFont;
-import org.newdawn.slick.font.effects.ColorEffect;
 import org.newdawn.slick.state.StateBasedGame;
 
 import core.Player;
@@ -25,6 +24,7 @@ import core.TextBlock;
 public class MainWindow extends Window {
 
     private final int LINE_HEIGHT = 120; // Distance between baselines of successive lines of text.
+    private final int END_LINE_HEIGHT = 90; // Distance between lines after acceleration.
     private final double TICK_LENGTH = 11; // Milliseconds for text to move one pixel.
     private final int MARGIN = 30;
     private final int MIN_GAP = 50;
@@ -85,11 +85,7 @@ public class MainWindow extends Window {
         }
         StringBuilder currentString = new StringBuilder(120); // Capacity of buffer.
 
-        String fontPath = "resources/cantarell.ttf";
-        UnicodeFont uFont = new UnicodeFont(fontPath, 20, false, false);
-        uFont.addAsciiGlyphs();
-        uFont.getEffects().add(new ColorEffect(java.awt.Color.WHITE));
-        uFont.loadGlyphs();
+        UnicodeFont uFont = ((PlayGameState)(game.getCurrentState())).uFont;
 
         try {
             int counter = 0;
