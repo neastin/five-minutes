@@ -28,12 +28,12 @@ public class MashWindow extends Window {
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g, Player player) throws SlickException {
         g.setColor(Color.gray);
-        g.drawString("Counter: " + this.mashCounter, 100 + player.windowPos[0], 100);
+        g.drawString("Counter: " + mashCounter, 100 + player.windowPos[0], 100);
     }
 
     @Override
     public void init(GameContainer container, StateBasedGame game, Player player) throws SlickException {
-        this.mashCounter = 0;
+        mashCounter = 0;
     }
 
     @Override
