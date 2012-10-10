@@ -98,22 +98,18 @@ public class PlayGameState extends BasicGameState {
 
         // for testing mash
         if (input.isKeyPressed(Input.KEY_1)) {
-            this.states.get(0).push(new MashWindow(players[0]));
-            this.states.get(0).peek().init(container, game, players[0]);
+            triggerMinigame(container, game, players[1], new MashWindow(players[1]));
         }
         if (input.isKeyPressed(Input.KEY_0)) {
-            this.states.get(1).push(new MashWindow(players[1]));
-            this.states.get(1).peek().init(container, game, players[1]);
+            triggerMinigame(container, game, players[1], new MashWindow(players[1]));
         }
 
         // for testing maze
         if (input.isKeyPressed(Input.KEY_2)) {
-            this.states.get(0).push(new MazeWindow(players[0]));
-            this.states.get(0).peek().init(container, game, players[0]);
+            triggerMinigame(container, game, players[0], new MazeWindow(players[0]));
         }
         if (input.isKeyPressed(Input.KEY_9)) {
-            this.states.get(1).push(new MazeWindow(players[1]));
-            this.states.get(1).peek().init(container, game, players[1]);
+            triggerMinigame(container, game, players[1], new MazeWindow(players[1]));
         }
 
         for (int i = 0; i < this.states.size(); i++) {
@@ -126,6 +122,12 @@ public class PlayGameState extends BasicGameState {
             }
             windowedState.update(container, game, delta, players[i]);
         }
+    }
+
+    protected void triggerMinigame(GameContainer container, StateBasedGame game, Player player, Window minigame) throws SlickException {
+        int playerIndex = (player == players[0]) ? 0 : 1;
+        this.states.get(playerIndex).push(minigame);
+        minigame.init(container, game, player);
     }
 
     @Override

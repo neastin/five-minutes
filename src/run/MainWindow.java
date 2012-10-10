@@ -136,7 +136,14 @@ public class MainWindow extends Window {
         for (int i = 0; i < lines.size(); i++) {
             TextBlock line = lines.get(i);
             boolean result = line.update(movement, player);
-            if (result) {
+            if (result && line.color != Color.red) {
+                double rand = Math.random();
+                PlayGameState state = (PlayGameState)(game.getCurrentState());
+                if (rand < 0.1) {
+                    state.triggerMinigame(container, game, player, new MashWindow(player));
+                } else if (rand < 0.2) {
+                    state.triggerMinigame(container, game, player, new MazeWindow(player));
+                }
                 line.color = Color.red;
             }
         }
