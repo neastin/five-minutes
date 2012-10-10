@@ -115,7 +115,7 @@ public class PlayGameState extends BasicGameState {
         Input input = container.getInput();
 
         for (int key : startKeys) {
-            if (input.isKeyPressed(key)) {
+            if (input.isKeyDown(key)) {
                 started = true;
             }
         }
