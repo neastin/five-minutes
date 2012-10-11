@@ -27,12 +27,14 @@ public class MashWindow extends Window {
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g, Player player) throws SlickException {
+        this.displayMinigameBackground(g, player);
         g.setColor(Color.gray);
         g.drawString("Counter: " + mashCounter, 100 + player.windowPos[0], 100);
     }
 
     @Override
     public void init(GameContainer container, StateBasedGame game, Player player) throws SlickException {
+        super.init(container, game, player);
         mashCounter = 0;
     }
 

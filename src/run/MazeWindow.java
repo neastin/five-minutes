@@ -35,6 +35,7 @@ public class MazeWindow extends Window {
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g, Player player) throws SlickException {
+        this.displayMinigameBackground(g, player);
         g.drawImage(goalSprite, goalPos[0], goalPos[1]);
         player.render(container, game, g, playerPos[0], playerPos[1]);
 
@@ -43,6 +44,7 @@ public class MazeWindow extends Window {
 
     @Override
     public void init(GameContainer container, StateBasedGame game, Player player) throws SlickException {
+        super.init(container, game, player);
         playerPos[0] = player.windowPos[0] + 200;
         playerPos[1] = player.windowPos[1] + 170;
 

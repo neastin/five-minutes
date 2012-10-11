@@ -25,6 +25,7 @@ public class DodgeWindow extends Window {
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g, Player player) throws SlickException {
+        this.displayMinigameBackground(g, player);
         for (int i = 0; i < objPos.length; i++) {
             if (objVis[i])
                 g.drawImage(objSprite, objPos[i][0], objPos[i][1]);
@@ -35,6 +36,7 @@ public class DodgeWindow extends Window {
 
     @Override
     public void init(GameContainer container, StateBasedGame game, Player player) throws SlickException {
+        super.init(container, game, player);
         playerPos[0] = player.windowPos[0] + player.windowSize[0] - player.pWidth;
         playerPos[1] = player.windowPos[1] + (int) player.windowSize[1] / 2;
         for (int i = 0; i < objPos.length; i++) {

@@ -20,11 +20,13 @@ public class TutorialLeftWindow extends Window {
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g, Player player) throws SlickException {
+        this.displayMinigameBackground(g, player);
         player.render(container, game, g, playerPos[0], playerPos[1]);
     }
 
     @Override
     public void init(GameContainer container, StateBasedGame game, Player player) throws SlickException {
+        super.init(container, game, player);
         playerPos[0] = player.windowPos[0] + player.windowSize[0] - player.pWidth;
         playerPos[1] = player.windowPos[1] + 170;
     }
