@@ -123,6 +123,19 @@ public class PlayGameState extends BasicGameState {
             container.exit();
         }
 
+        if (input.isKeyPressed(Input.KEY_1)) {
+            triggerMinigame(container, game, players[0], new DodgeWindow(players[0]));
+        }
+        if (input.isKeyPressed(Input.KEY_0)) {
+            triggerMinigame(container, game, players[1], new DodgeWindow(players[1]));
+        }
+        if (input.isKeyPressed(Input.KEY_2)) {
+            triggerMinigame(container, game, players[0], new CatchWindow(players[0]));
+        }
+        if (input.isKeyPressed(Input.KEY_9)) {
+            triggerMinigame(container, game, players[1], new CatchWindow(players[1]));
+        }
+
         if (started) {
             for (int i = 0; i < this.states.size(); i++) {
                 Stack<Window> stack = this.states.get(i);
