@@ -12,12 +12,14 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.font.effects.ColorEffect;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import core.Player;
+import core.PopUp;
 
 public class PlayGameState extends BasicGameState {
 
@@ -33,7 +35,11 @@ public class PlayGameState extends BasicGameState {
 
     private Set<Integer> startKeys;
 
+    private PopUp currentPopUp;
+
     public UnicodeFont uFont;
+
+    public Sound levelUp;
 
     public PlayGameState() {
         super();
@@ -80,11 +86,18 @@ public class PlayGameState extends BasicGameState {
             Window windowedState = stack.peek();
             windowedState.render(container, game, g, players[i]);
         }
+
+        if (currentPopUp != null) {
+            currentPopUp.render(container, game, g);
+        }
+
     }
 
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         this.background = new Image("resources/big-background.png");
+
+        levelUp = new Sound("resources/music/levelup.wav");
 
         Music loop = new Music("resources/music/five-minutes_longloop.wav");
         loop.loop();
@@ -110,6 +123,8 @@ public class PlayGameState extends BasicGameState {
             Window windowedState = stack.peek();
             windowedState.init(container, game, players[i]);
         }
+
+        currentPopUp = null;
     }
 
     @Override
@@ -154,6 +169,17 @@ public class PlayGameState extends BasicGameState {
                     stack.pop();
                 }
                 windowedState.update(container, game, delta, players[i]);
+            }
+
+            if (currentPopUp != null) {
+                currentPopUp.update(container, game, delta);
+                if (currentPopUp.over()) {
+                    currentPopUp = null;
+                }
+            }
+            if (Math.random() < .01) {
+                currentPopUp = new PopUp();
+                levelUp.play();
             }
         }
     }

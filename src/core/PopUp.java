@@ -16,16 +16,14 @@ public class PopUp {
     private boolean over;
 
     public PopUp() throws SlickException {
-        image = new Image("resources/face.png");
+        image = new Image("resources/levelup.png");
 
         int side = 0;
         if (Math.random() > .5)
             side = 1;
 
         startLoc[0] = 100 + side * 400;
-        startLoc[1] = 600;
-        endLoc[0] = 300 + side * 400;
-        endLoc[1] = 480;
+        startLoc[1] = 500;
 
         loc[0] = startLoc[0];
         loc[1] = startLoc[1];
@@ -38,14 +36,10 @@ public class PopUp {
     }
 
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-        if ((endLoc[0] - startLoc[0]) != 0) {
-            loc[0] += delta / (endLoc[0] - startLoc[0]) * 30f;
-        }
-        if ((endLoc[1] - startLoc[1]) != 0) {
-            loc[1] += delta / (endLoc[1] - startLoc[1]) * 30f;
-        }
 
-        if ((loc[1] < endLoc[1]) || (loc[0] > endLoc[0])) {
+        loc[0] += delta * .5f;
+        loc[1] -= delta * 1f;
+        if ((loc[1] < 0) || (loc[0] < 0)) {
             over = true;
         }
     }
