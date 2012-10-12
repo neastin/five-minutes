@@ -80,28 +80,28 @@ public class MainWindow extends Window {
             } else {
                 this.secondMiniGame = 1;
             }
-            return;
+            // return;
         } else if (text.contains("SwitchGame2")) {
             if (player.tag == 1) {
                 this.firstMiniGame = 2;
             } else {
                 this.secondMiniGame = 2;
             }
-            return;
+            // return;
         } else if (text.contains("SwitchGame3")) {
             if (player.tag == 1) {
                 this.firstMiniGame = 3;
             } else {
                 this.secondMiniGame = 3;
             }
-            return;
+            // return;
         } else if (text.contains("SwitchGame4")) {
             if (player.tag == 1) {
                 this.firstMiniGame = 4;
             } else {
                 this.secondMiniGame = 4;
             }
-            return;
+            // return;
         }
 
         String[] words = text.split(" ");
@@ -117,6 +117,13 @@ public class MainWindow extends Window {
         String first = firstBuilder.toString();
         String second = text.substring(first.length() + 1);
 
+        if (first.contains("SwitchGame")) {
+            first = "";
+        }
+
+        if (second.contains("SwitchGame")) {
+            second = "";
+        }
         // Render the second string right-justified.
         float secondX = x - MARGIN + player.windowSize[0] - uFont.getWidth(second);
         int gameTag;
