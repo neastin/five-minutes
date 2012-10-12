@@ -30,7 +30,7 @@ public class MazeWindow extends Window {
 
     public MazeWindow(Player player) throws SlickException {
         super(player);
-        goalSprite = new Image("resources/trophy.png");
+        goalSprite = new Image("resources/tunnel.png");
     }
 
     @Override

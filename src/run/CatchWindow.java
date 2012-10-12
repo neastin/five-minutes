@@ -19,7 +19,7 @@ public class CatchWindow extends Window {
 
     public CatchWindow(Player player) throws SlickException {
         super(player);
-        objSprite = new Image("resources/trophy.png");
+        objSprite = new Image("resources/coin.png");
         // TODO Change objSprite
     }
 
