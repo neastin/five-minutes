@@ -22,7 +22,7 @@ public class PopUp {
         if (Math.random() > .5)
             side = 1;
 
-        startLoc[0] = 100 + side * 400;
+        startLoc[0] = 50 + side * 400;
         startLoc[1] = 500;
 
         loc[0] = startLoc[0];
@@ -37,8 +37,8 @@ public class PopUp {
 
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 
-        loc[0] += delta * .5f;
-        loc[1] -= delta * 1f;
+        loc[0] += delta * .3f;
+        loc[1] -= delta * .7f;
         if ((loc[1] < 0) || (loc[0] < 0)) {
             over = true;
         }
