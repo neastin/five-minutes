@@ -47,6 +47,25 @@ public class MainWindow extends Window {
         }
 
         player.render(container, game, g, playerPos[0], playerPos[1]);
+
+        PlayGameState state = (PlayGameState)(game.getCurrentState());
+        UnicodeFont uFont = state.uFont;
+        if (state.wonPlayer != null) {
+            g.setColor(new Color(1.0f, 1.0f, 1.0f, 0.6f));
+            g.fillRect(player.windowPos[0], player.windowPos[1], player.windowSize[0], player.windowSize[1]);
+            g.setColor(Color.black);
+
+            g.setFont(state.uFont);
+            String message;
+            if (state.wonPlayer == player) {
+                message = "You win!";
+            } else {
+                message = "You lose. :'(";
+            }
+            float messageX = player.windowPos[0] + (player.windowSize[0] - uFont.getWidth(message)) / 2;
+            float messageY = player.windowPos[1] + (player.windowSize[1] - uFont.getHeight(message)) / 2;
+            g.drawString(message, messageX, messageY);
+        }
     }
 
     private void addLine(Player player, String text, UnicodeFont uFont, int counter, float x, float y) {
@@ -137,12 +156,12 @@ public class MainWindow extends Window {
         playerPos[1] = Math.min(playerPos[1], player.windowPos[1] + player.windowSize[1] - player.pWidth);
 
         float movement = -(float) delta / (float) TICK_LENGTH;
+        PlayGameState state = (PlayGameState) (game.getCurrentState());
         for (int i = 0; i < lines.size(); i++) {
             TextBlock line = lines.get(i);
             boolean result = line.update(movement, player);
             if (result && line.color != Color.red) {
                 double rand = Math.random();
-                PlayGameState state = (PlayGameState) (game.getCurrentState());
                 if (rand < 0.1) {
                     state.triggerMinigame(container, game, player, new MashWindow(player));
                 } else if (rand < 0.2) {
@@ -150,6 +169,9 @@ public class MainWindow extends Window {
                 }
                 line.color = Color.red;
             }
+        }
+        if (lines.get(lines.size() - 1).pos[1] <= playerPos[1]) {
+            state.wonPlayer = player;
         }
     }
 
