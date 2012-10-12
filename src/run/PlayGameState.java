@@ -29,6 +29,7 @@ public class PlayGameState extends BasicGameState {
     public Image background;
 
     public boolean started;
+    public Player wonPlayer;
 
     private Set<Integer> startKeys;
 
@@ -63,6 +64,7 @@ public class PlayGameState extends BasicGameState {
         players[1] = new Player(p2WinPos, p2WinSize, p2Buttons);
 
         started = false;
+        wonPlayer = null;
     }
 
     @Override
@@ -122,6 +124,12 @@ public class PlayGameState extends BasicGameState {
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
             container.exit();
         }
+        if (input.isKeyPressed(Input.KEY_SLASH)) {
+            wonPlayer = players[1];
+        }
+        if (input.isKeyPressed(Input.KEY_V)) {
+            wonPlayer = players[0];
+        }
 
         if (input.isKeyPressed(Input.KEY_1)) {
             triggerMinigame(container, game, players[0], new DodgeWindow(players[0]));
@@ -136,7 +144,7 @@ public class PlayGameState extends BasicGameState {
             triggerMinigame(container, game, players[1], new CatchWindow(players[1]));
         }
 
-        if (started) {
+        if (started && wonPlayer == null) {
             for (int i = 0; i < this.states.size(); i++) {
                 Stack<Window> stack = this.states.get(i);
                 Window windowedState = stack.peek();
