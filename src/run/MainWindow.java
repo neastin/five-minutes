@@ -24,7 +24,7 @@ import core.TextBlock;
 public class MainWindow extends Window {
 
     private final int LINE_HEIGHT = 120; // Distance between baselines of successive lines of text.
-    private final int END_LINE_HEIGHT = 90; // Distance between lines after acceleration.
+    // private final int END_LINE_HEIGHT = 90; // Distance between lines after acceleration.
     private final double TICK_LENGTH = 11; // Milliseconds for text to move one pixel.
     private final int MARGIN = 30;
     private final int MIN_GAP = 50;

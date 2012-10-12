@@ -10,7 +10,6 @@ public class PopUp {
 
     private Image image;
     private float[] startLoc = new float[2];
-    private float[] endLoc = new float[2];
     private float[] loc = new float[2];
 
     private boolean over;

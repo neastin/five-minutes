@@ -9,6 +9,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.state.StateBasedGame;
 
 import core.Player;
@@ -28,7 +29,13 @@ public class MashWindow extends Window {
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g, Player player) throws SlickException {
         this.displayMinigameBackground(g, player);
-        g.setColor(Color.gray);
+
+        g.setColor(Color.white);
+
+        PlayGameState state = (PlayGameState) (game.getCurrentState());
+        UnicodeFont uFont = state.uFont;
+        g.setFont(state.uFont);
+
         g.drawString("Counter: " + mashCounter, 100 + player.windowPos[0], 100);
     }
 

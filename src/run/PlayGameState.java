@@ -15,6 +15,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.font.effects.ColorEffect;
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -39,6 +40,9 @@ public class PlayGameState extends BasicGameState {
 
     public UnicodeFont uFont;
 
+    public int[] delay = { 0, 0 };
+    public float maxDelay;
+
     public Sound levelUp;
 
     public PlayGameState() {
@@ -47,6 +51,8 @@ public class PlayGameState extends BasicGameState {
         float[] p2WinSize = { 399, 600 };
         float[] p1WinPos = { 0, 0 };
         float[] p2WinPos = { 400, 0 };
+
+        maxDelay = 60;
 
         HashMap<String, Integer> p1Buttons = new HashMap<String, Integer>();
         p1Buttons.put("up", Input.KEY_W);
@@ -90,8 +96,14 @@ public class PlayGameState extends BasicGameState {
             currentPopUp.render(container, game, g);
         }
 
+        for (int i = 0; i < this.states.size(); i++) {
+            if (delay[i] > 0) {
+                g.draw(new Rectangle(50 + 400 * i, 275, delay[i] * 300 / maxDelay, 50));
+            }
+        }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         this.background = new Image("resources/big-background.png");
@@ -138,25 +150,6 @@ public class PlayGameState extends BasicGameState {
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
             container.exit();
         }
-        if (input.isKeyPressed(Input.KEY_SLASH)) {
-            wonPlayer = players[1];
-        }
-        if (input.isKeyPressed(Input.KEY_V)) {
-            wonPlayer = players[0];
-        }
-
-        if (input.isKeyPressed(Input.KEY_1)) {
-            triggerMinigame(container, game, players[0], new DodgeWindow(players[0]));
-        }
-        if (input.isKeyPressed(Input.KEY_0)) {
-            triggerMinigame(container, game, players[1], new DodgeWindow(players[1]));
-        }
-        if (input.isKeyPressed(Input.KEY_2)) {
-            triggerMinigame(container, game, players[0], new CatchWindow(players[0]));
-        }
-        if (input.isKeyPressed(Input.KEY_9)) {
-            triggerMinigame(container, game, players[1], new CatchWindow(players[1]));
-        }
 
         if (started && wonPlayer == null) {
             for (int i = 0; i < this.states.size(); i++) {
@@ -166,8 +159,14 @@ public class PlayGameState extends BasicGameState {
                 // note: update before or after?
                 if (windowedState.over() == true) {
                     stack.pop();
+                    delay[i] = (int) maxDelay;
                 }
-                windowedState.update(container, game, delta, players[i]);
+
+                if (delay[i] > 0) {
+                    delay[i]--;
+                } else {
+                    windowedState.update(container, game, delta, players[i]);
+                }
             }
 
             if (currentPopUp != null) {
@@ -176,7 +175,7 @@ public class PlayGameState extends BasicGameState {
                     currentPopUp = null;
                 }
             }
-            if (Math.random() < .006) {
+            if (Math.random() < .003) {
                 currentPopUp = new PopUp();
                 levelUp.play();
             }

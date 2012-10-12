@@ -51,7 +51,7 @@ public class DodgeWindow extends Window {
                 y *= -1;
             objSpd[i] = new float[] { (float) x, (float) y };
         }
-        timer = 10.0;
+        timer = 5.0;
     }
 
     @Override

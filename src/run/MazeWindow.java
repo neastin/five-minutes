@@ -4,6 +4,7 @@
  */
 package run;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -39,6 +40,7 @@ public class MazeWindow extends Window {
         g.drawImage(goalSprite, goalPos[0], goalPos[1]);
         player.render(container, game, g, playerPos[0], playerPos[1]);
 
+        g.setColor(Color.white);
         g.draw(maze);
     }
 
