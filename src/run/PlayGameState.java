@@ -177,7 +177,7 @@ public class PlayGameState extends BasicGameState {
                     currentPopUp = null;
                 }
             }
-            if (Math.random() < .01) {
+            if (Math.random() < .006) {
                 currentPopUp = new PopUp();
                 levelUp.play();
             }
