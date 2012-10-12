@@ -10,6 +10,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.geom.Path;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
@@ -42,6 +43,13 @@ public class MazeWindow extends Window {
 
         g.setColor(Color.white);
         g.draw(maze);
+
+        g.setColor(Color.white);
+        PlayGameState state = (PlayGameState) (game.getCurrentState());
+        UnicodeFont uFont = state.uFont;
+        g.setFont(state.uFont);
+        g.drawString("Exit the maze", 100 + player.windowPos[0], 65);
+        g.setColor(Color.black);
     }
 
     @Override

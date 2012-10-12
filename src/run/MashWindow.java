@@ -31,12 +31,12 @@ public class MashWindow extends Window {
         this.displayMinigameBackground(g, player);
 
         g.setColor(Color.white);
-
         PlayGameState state = (PlayGameState) (game.getCurrentState());
         UnicodeFont uFont = state.uFont;
         g.setFont(state.uFont);
-
-        g.drawString("Counter: " + mashCounter, 100 + player.windowPos[0], 100);
+        g.drawString("PRESS ANY BUTTON", 100 + player.windowPos[0], 100);
+        g.drawString("Counter: " + mashCounter, 100 + player.windowPos[0], 100 + 30);
+        g.setColor(Color.black);
     }
 
     @Override

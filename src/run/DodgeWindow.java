@@ -1,10 +1,12 @@
 package run;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -32,6 +34,13 @@ public class DodgeWindow extends Window {
         }
         player.render(container, game, g, playerPos[0], playerPos[1]);
         g.drawString(Double.toString(Math.ceil(timer)), player.windowPos[0] + 350, player.windowPos[1]);
+
+        g.setColor(Color.white);
+        PlayGameState state = (PlayGameState) (game.getCurrentState());
+        UnicodeFont uFont = state.uFont;
+        g.setFont(state.uFont);
+        g.drawString("Survive for 4 seconds!", 100 + player.windowPos[0], 65);
+        g.setColor(Color.black);
     }
 
     @Override
@@ -51,7 +60,7 @@ public class DodgeWindow extends Window {
                 y *= -1;
             objSpd[i] = new float[] { (float) x, (float) y };
         }
-        timer = 5.0;
+        timer = 4.0;
     }
 
     @Override
@@ -97,7 +106,7 @@ public class DodgeWindow extends Window {
         Rectangle playerShape = new Rectangle(playerPos[0], playerPos[1], 20, 20);
         for (int i = 0; i < objPos.length; i++) {
             if (objVis[i] && (new Rectangle(objPos[i][0], objPos[i][1], 40, 40)).intersects(playerShape)) {
-                timer += 2;
+                timer = 4.0;
                 objVis[i] = false;
             }
         }

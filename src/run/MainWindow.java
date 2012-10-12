@@ -211,6 +211,7 @@ public class MainWindow extends Window {
                 if (line.miniGame == 0) {
                     if (rand < 0.5) {
                         state.triggerMinigame(container, game, player, new TutorialRightWindow(player));
+                        // state.triggerMinigame(container, game, player, new DodgeWindow(player));
                     } else {
                         state.triggerMinigame(container, game, player, new TutorialLeftWindow(player));
                     }

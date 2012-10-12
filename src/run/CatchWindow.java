@@ -1,10 +1,12 @@
 package run;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -32,6 +34,13 @@ public class CatchWindow extends Window {
         }
         player.render(container, game, g, playerPos[0], playerPos[1]);
         g.drawString(Double.toString(Math.ceil(counter)), player.windowPos[0] + 350, player.windowPos[1]);
+
+        g.setColor(Color.white);
+        PlayGameState state = (PlayGameState) (game.getCurrentState());
+        UnicodeFont uFont = state.uFont;
+        g.setFont(state.uFont);
+        g.drawString("Collect most objects", 100 + player.windowPos[0], 65);
+        g.setColor(Color.black);
     }
 
     @Override
@@ -101,7 +110,7 @@ public class CatchWindow extends Window {
                 objVis[i] = false;
             }
         }
-        if (counter <= 0) {
+        if (counter <= 2) {
             this.over = true;
         }
     }
