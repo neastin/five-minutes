@@ -1,12 +1,11 @@
 package core;
 
 import org.newdawn.slick.Color;
-import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.UnicodeFont;
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class TextBlock {
@@ -16,14 +15,16 @@ public class TextBlock {
     public Color color;
     public Font font;
     protected Rectangle boundingBox;
+    public final int miniGame;
 
-    public TextBlock(String text, Font font, float x, float y) {
+    public TextBlock(String text, Font font, float x, float y, int miniGame) {
         this.text = text;
         this.font = font;
         this.color = Color.black;
         this.pos = new float[2];
         this.pos[0] = x;
         this.pos[1] = y;
+        this.miniGame = miniGame;
         boundingBox = new Rectangle(x, y, font.getWidth(text), font.getHeight(text));
     }
 

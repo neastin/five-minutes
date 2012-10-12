@@ -19,12 +19,14 @@ public class Player {
     public Rectangle boundingBox;
     public int pWidth = 40;
     public int pHeight = 40;
+    public final int tag;
 
-    public Player(float[] startWindowPos, float[] startWindowSize, HashMap<String, Integer> playerButtons) {
+    public Player(float[] startWindowPos, float[] startWindowSize, HashMap<String, Integer> playerButtons, int tag) {
         windowPos = startWindowPos;
         windowSize = startWindowSize;
         buttons = playerButtons;
         boundingBox = new Rectangle(10, 10, 30, 30);
+        this.tag = tag;
         try {
             this.playerSprite = new Image("resources/ninja.png");
         } catch (SlickException e) {

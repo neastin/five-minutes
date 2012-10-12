@@ -66,9 +66,8 @@ public class PlayGameState extends BasicGameState {
         startKeys.addAll(p2Buttons.values());
 
         players = new Player[2];
-        players[0] = new Player(p1WinPos, p1WinSize, p1Buttons);
-        players[1] = new Player(p2WinPos, p2WinSize, p2Buttons);
-
+        players[0] = new Player(p1WinPos, p1WinSize, p1Buttons, 1);
+        players[1] = new Player(p2WinPos, p2WinSize, p2Buttons, 2);
         started = false;
         wonPlayer = null;
     }

@@ -14,7 +14,7 @@ public class TutorialLeftWindow extends Window {
 
     public TutorialLeftWindow(Player player) {
         super(player);
-        lapGoal = 3;
+        lapGoal = 1;
         // TODO Auto-generated constructor stub
     }
 

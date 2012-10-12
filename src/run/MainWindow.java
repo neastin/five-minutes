@@ -31,6 +31,8 @@ public class MainWindow extends Window {
     private final int Y_OFFSET = 300;
     private BufferedReader reader;
     private ArrayList<TextBlock> lines;
+    private int firstMiniGame;
+    private int secondMiniGame;
 
     public MainWindow(Player player) {
         super(player);
@@ -48,7 +50,7 @@ public class MainWindow extends Window {
 
         player.render(container, game, g, playerPos[0], playerPos[1]);
 
-        PlayGameState state = (PlayGameState)(game.getCurrentState());
+        PlayGameState state = (PlayGameState) (game.getCurrentState());
         UnicodeFont uFont = state.uFont;
         if (state.wonPlayer != null) {
             g.setColor(new Color(1.0f, 1.0f, 1.0f, 0.6f));
@@ -72,6 +74,36 @@ public class MainWindow extends Window {
         if (text.length() == 0)
             return;
 
+        if (text.contains("SwitchGame1")) {
+            if (player.tag == 1) {
+                this.firstMiniGame = 1;
+            } else {
+                this.secondMiniGame = 1;
+            }
+            return;
+        } else if (text.contains("SwitchGame2")) {
+            if (player.tag == 1) {
+                this.firstMiniGame = 2;
+            } else {
+                this.secondMiniGame = 2;
+            }
+            return;
+        } else if (text.contains("SwitchGame3")) {
+            if (player.tag == 1) {
+                this.firstMiniGame = 3;
+            } else {
+                this.secondMiniGame = 3;
+            }
+            return;
+        } else if (text.contains("SwitchGame4")) {
+            if (player.tag == 1) {
+                this.firstMiniGame = 4;
+            } else {
+                this.secondMiniGame = 4;
+            }
+            return;
+        }
+
         String[] words = text.split(" ");
         int splitWord = (int) (Math.random() * (words.length - 1)) + 1;
 
@@ -87,8 +119,14 @@ public class MainWindow extends Window {
 
         // Render the second string right-justified.
         float secondX = x - MARGIN + player.windowSize[0] - uFont.getWidth(second);
-        lines.add(new TextBlock(first, uFont, x + MARGIN, y + MARGIN + Y_OFFSET + LINE_HEIGHT * counter));
-        lines.add(new TextBlock(second, uFont, secondX, y + MARGIN + Y_OFFSET + LINE_HEIGHT * counter));
+        int gameTag;
+        if (player.tag == 1) {
+            gameTag = this.firstMiniGame;
+        } else {
+            gameTag = this.secondMiniGame;
+        }
+        lines.add(new TextBlock(first, uFont, x + MARGIN, y + MARGIN + Y_OFFSET + LINE_HEIGHT * counter, gameTag));
+        lines.add(new TextBlock(second, uFont, secondX, y + MARGIN + Y_OFFSET + LINE_HEIGHT * counter, gameTag));
     }
 
     @Override
@@ -102,7 +140,7 @@ public class MainWindow extends Window {
         }
         StringBuilder currentString = new StringBuilder(120); // Capacity of buffer.
 
-        UnicodeFont uFont = ((PlayGameState)(game.getCurrentState())).uFont;
+        UnicodeFont uFont = ((PlayGameState) (game.getCurrentState())).uFont;
 
         try {
             int counter = 0;
@@ -162,12 +200,22 @@ public class MainWindow extends Window {
             boolean result = line.update(movement, player);
             if (result && line.color != Color.red) {
                 double rand = Math.random();
-                if (rand < 0.1) {
-                    state.triggerMinigame(container, game, player, new MashWindow(player));
-                } else if (rand < 0.2) {
+
+                if (line.miniGame == 0) {
+                    if (rand < 0.5) {
+                        state.triggerMinigame(container, game, player, new TutorialRightWindow(player));
+                    } else {
+                        state.triggerMinigame(container, game, player, new TutorialLeftWindow(player));
+                    }
+                } else if (line.miniGame == 1) {
                     state.triggerMinigame(container, game, player, new MazeWindow(player));
+                } else if (line.miniGame == 2) {
+                    state.triggerMinigame(container, game, player, new MashWindow(player));
+                } else if (line.miniGame == 3) {
+                    state.triggerMinigame(container, game, player, new CatchWindow(player));
+                } else if (line.miniGame == 4) {
+                    state.triggerMinigame(container, game, player, new DodgeWindow(player));
                 }
-                line.color = Color.red;
             }
         }
         if (lines.get(lines.size() - 1).pos[1] <= playerPos[1]) {
