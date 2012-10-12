@@ -207,6 +207,7 @@ public class MainWindow extends Window {
                     } else {
                         state.triggerMinigame(container, game, player, new TutorialLeftWindow(player));
                     }
+
                 } else if (line.miniGame == 1) {
                     state.triggerMinigame(container, game, player, new MazeWindow(player));
                 } else if (line.miniGame == 2) {
@@ -216,6 +217,7 @@ public class MainWindow extends Window {
                 } else if (line.miniGame == 4) {
                     state.triggerMinigame(container, game, player, new DodgeWindow(player));
                 }
+                line.color = Color.red;
             }
         }
         if (lines.get(lines.size() - 1).pos[1] <= playerPos[1]) {
